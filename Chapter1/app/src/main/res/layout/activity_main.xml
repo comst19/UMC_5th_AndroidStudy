@@ -15,7 +15,8 @@
         android:id="@+id/nav_host"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:navGraph="@navigation/nav_bottom_graph"/>
+        app:navGraph="@navigation/nav_bottom_graph"
+        app:defaultNavHost="true" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_bottom_bar"
@@ -26,6 +27,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/nav_bottom_menu"
+        app:itemActiveIndicatorStyle="@null"
         app:labelVisibilityMode="labeled"
         app:itemIconTint="@drawable/menu_selector"
         app:itemTextColor="@drawable/menu_selector"/>
