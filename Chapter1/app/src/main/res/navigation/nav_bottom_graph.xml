@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_bottom_graph"
+    app:startDestination="@id/audioFragment">
+
+    <fragment
+        android:id="@+id/audioFragment"
+        android:name="com.comst.chapter1.AudioFragment"
+        android:label="fragment_audio"
+        tools:layout="@layout/fragment_audio" />
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.comst.chapter1.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/lockerFragment"
+        android:name="com.comst.chapter1.LockerFragment"
+        android:label="fragment_locker"
+        tools:layout="@layout/fragment_locker" />
+
+    <fragment
+        android:id="@+id/lookFragment"
+        android:name="com.comst.chapter1.LookFragment"
+        android:label="fragment_look"
+        tools:layout="@layout/fragment_look" />
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.comst.chapter1.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
+
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.comst.chapter1.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+</navigation>
