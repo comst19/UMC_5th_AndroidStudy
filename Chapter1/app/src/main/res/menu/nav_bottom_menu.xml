@@ -4,31 +4,31 @@
 
     <item
         android:icon="@drawable/icon_home"
-        android:id="home"
+        android:id="@+id/homeFragment"
         android:title="홈"
         app:showAsAction="always"/>
 
     <item
         android:icon="@drawable/icon_look"
-        android:id="look"
+        android:id="@+id/lookFragment"
         android:title="둘러보기"
         app:showAsAction="always"/>
 
     <item
         android:icon="@drawable/icon_audio"
-        android:id="audion"
+        android:id="@+id/audioFragment"
         android:title="오디오"
         app:showAsAction="always"/>
 
     <item
         android:icon="@drawable/icon_search"
-        android:id="search"
+        android:id="@+id/searchFragment"
         android:title="검색"
         app:showAsAction="always"/>
 
     <item
         android:icon="@drawable/icon_locker"
-        android:id="locker"
+        android:id="@+id/lockerFragment"
         android:title="보관함"
         app:showAsAction="always"/>
 
