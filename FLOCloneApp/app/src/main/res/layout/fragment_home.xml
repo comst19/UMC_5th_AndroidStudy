@@ -55,7 +55,7 @@
                         android:layout_marginTop="75dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/play_circle" />
+                        app:srcCompat="@drawable/btn_panel_play_large" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/totalMusicTextView"
@@ -73,7 +73,7 @@
                         android:layout_height="45dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:srcCompat="@drawable/insider_logo" />
+                        app:srcCompat="@drawable/img_album_exp" />
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/musicImageView1"
@@ -82,14 +82,14 @@
                         android:layout_marginBottom="20dp"
                         app:layout_constraintBottom_toTopOf="@id/musicImageView2"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:srcCompat="@drawable/insider_logo" />
+                        app:srcCompat="@drawable/img_album_exp" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/musicTitleTextView1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10sp"
-                        android:text="INSIDER"
+                        android:text="잠이 안온다"
                         android:textColor="@color/white"
                         android:textSize="15sp"
                         android:textStyle="bold"
@@ -100,7 +100,7 @@
                         android:id="@+id/musicArtistTextView1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="UMC_4th_55팀"
+                        android:text="젠(zen)"
                         android:textColor="@color/white"
                         android:textSize="12sp"
                         android:textStyle="bold"
@@ -112,7 +112,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10sp"
-                        android:text="INSIDER"
+                        android:text="잠이 안온다"
                         android:textColor="@color/white"
                         android:textSize="15sp"
                         android:textStyle="bold"
@@ -123,7 +123,7 @@
                         android:id="@+id/musicArtistTextView2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="UMC_4th_55팀"
+                        android:text="젠(zen)"
                         android:textColor="@color/white"
                         android:textSize="12sp"
                         android:textStyle="bold"
@@ -157,12 +157,12 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     app:layout_constraintBottom_toBottomOf="@id/todayMusicTitleTextView"
                     app:layout_constraintStart_toEndOf="@id/todayMusicTitleTextView"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/arrow_forward" />
+                    app:srcCompat="@drawable/btn_main_arrow_more" />
 
                 <TextView
                     android:id="@+id/todayMusicOverseas"
@@ -219,12 +219,11 @@
                 android:layout_width="0dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="40dp"
-                android:background="#46B451"
-                android:paddingVertical="15dp"
+                android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/todayMusicLayout"
-                app:srcCompat="@drawable/advertisement" />
+                app:srcCompat="@drawable/img_home_viewpager_exp" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/everydayMusicLayout"
@@ -299,7 +298,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/goInsider"
+                android:id="@+id/hom_discovery_banner"
                 android:layout_width="0dp"
                 android:layout_height="300dp"
                 android:layout_marginHorizontal="15dp"
@@ -308,19 +307,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/videoMusicLayout"
-                app:srcCompat="@drawable/insider_splash" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/round_btn"
-                android:paddingHorizontal="30dp"
-                android:text="선택하러 가기"
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="@id/goInsider"
-                app:layout_constraintEnd_toEndOf="@id/goInsider"
-                app:layout_constraintStart_toStartOf="@id/goInsider"
-                app:layout_constraintTop_toTopOf="@id/goInsider" />
+                app:srcCompat="@drawable/discovery_banner_aos" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/bottomAdvertisement"
@@ -328,12 +315,11 @@
                 android:layout_height="100dp"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="35dp"
-                android:background="#46B451"
-                android:paddingVertical="30dp"
+                android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/goInsider"
-                app:srcCompat="@drawable/advertisement" />
+                app:layout_constraintTop_toBottomOf="@id/hom_discovery_banner"
+                app:srcCompat="@drawable/img_home_viewpager_exp2" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/socialLayout"
@@ -354,7 +340,7 @@
                     app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/social_facebook" />
+                    app:srcCompat="@drawable/ic_main_facebook" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/instagramImg"
@@ -366,7 +352,7 @@
                     app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintStart_toEndOf="@id/facebookImg"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/social_instagram" />
+                    app:srcCompat="@drawable/ic_main_instagram" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/youtubeImg"
@@ -378,7 +364,7 @@
                     app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintStart_toEndOf="@id/instagramImg"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/social_youtube" />
+                    app:srcCompat="@drawable/ic_main_youtube" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/twitterImg"
@@ -389,19 +375,29 @@
                     app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintStart_toEndOf="@id/youtubeImg"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/social_twitter" />
+                    app:srcCompat="@drawable/ic_main_twitter" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
+                android:id="@+id/company"
                 android:layout_height="wrap_content"
-                android:text="(UMC) UNIV.MAKEUS CHALLENGE 4th 55팀"
+                android:text="(주)드림어스컴퍼니 사업자 정보"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/socialLayout"
-                android:drawableEnd="@drawable/arrow_forward"/>
+                app:layout_constraintTop_toBottomOf="@id/socialLayout"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintTop_toTopOf="@id/company"
+                app:layout_constraintBottom_toBottomOf="@id/company"
+                app:layout_constraintStart_toEndOf="@id/company"
+                app:srcCompat="@drawable/btn_main_arrow_more"/>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

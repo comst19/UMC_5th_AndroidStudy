@@ -1,10 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Chapter1" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.FLOCloneApp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-        <!-- Primary brand color. -->
-        <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
@@ -15,12 +13,14 @@
 
 
         <!-- Remove the title bar -->
-        <item name="windowNoTitle">true</item>
+        <!-- <item name="windowNoTitle">true</item> -->
 
         <!-- Status bar color. -->
+        <!-- Status bar color -->
         <item name="android:statusBarColor">@color/transparent</item>
         <item name="android:windowTranslucentStatus">true</item>
+
     </style>
 
-    <style name="Theme.Chapter1" parent="Base.Theme.Chapter1" />
+    <style name="Theme.FLOCloneApp" parent="Base.Theme.FLOCloneApp" />
 </resources>
