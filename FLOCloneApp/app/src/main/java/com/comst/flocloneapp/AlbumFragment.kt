@@ -11,7 +11,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
+import com.comst.flocloneapp.adapter.AlbumFragmentViewPagerAdapter
 import com.comst.flocloneapp.databinding.FragmentAlbumBinding
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 
 class AlbumFragment : Fragment() {
 
@@ -41,6 +44,32 @@ class AlbumFragment : Fragment() {
             appbarLayout.setPadding(0,getStatusBarHeight(requireContext()), 0, 0)
             binding.albumTitle.text = "IU 5th Album '$albumName'"
             binding.albumArtist.text = artistName
+
+
+
+            val tabName = arrayOf<String>("수록곡", "상세정보", "영상")
+
+
+            albumPager.adapter = AlbumFragmentViewPagerAdapter(requireActivity())
+
+            TabLayoutMediator(albumTabLayout, albumPager){ tab, position ->
+                tab.text = tabName[position]
+            }.attach()
+
+            albumTabLayout.addOnTabSelectedListener(object  : TabLayout.OnTabSelectedListener{
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    // 탭이 선택 되었을 때
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab?) {
+                    // 탭이 선택되지 않은 상태로 변경 되었을 때
+                }
+
+                override fun onTabReselected(tab: TabLayout.Tab?) {
+                    // 이미 선택된 탭이 다시 선택 되었을 때
+                }
+
+            })
         }
 
     }
