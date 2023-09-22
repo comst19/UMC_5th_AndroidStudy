@@ -6,24 +6,32 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.comst.flocloneapp.adapter.EverydayMusicAdapter
 import com.comst.flocloneapp.adapter.TodayMusicAdapter
 import com.comst.flocloneapp.adapter.VideoMusicAdapter
 import com.comst.flocloneapp.databinding.FragmentHomeBinding
+import com.comst.flocloneapp.listener.ItemTodayMusicListener
 import com.comst.flocloneapp.model.EverydayMusic
 import com.comst.flocloneapp.model.TodayMusic
 import com.comst.flocloneapp.model.VideoMusic
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), ItemTodayMusicListener {
 
     private var _binding : FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private val todayMusicAdapter = TodayMusicAdapter()
+    private val todayMusicAdapter = TodayMusicAdapter(this)
     private val everydayMusicAdapter = EverydayMusicAdapter()
     private val videoMusicAdapter = VideoMusicAdapter()
+
+    private val todayMusicList = mutableListOf<TodayMusic>()
+    private val everyMusicList = mutableListOf<EverydayMusic>()
+    private val videoMusicList = mutableListOf<VideoMusic>()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,6 +39,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding.appbarLayout.setPadding(0,getStatusBarHeight(requireContext())/2, 0, 0)
 
         initView()
 
@@ -39,19 +48,22 @@ class HomeFragment : Fragment() {
 
     private fun initView(){
         with(binding){
-            binding.toolbar.setPadding(0,getStatusBarHeight(requireContext()), 0, 0)
+
+            todayMusicDummy()
+            everydayMusicDummy()
+            videoMusicDummy()
 
             todayMusicRecyclerView.addItemDecoration(TodayMusicAdapterDecoration())
             todayMusicRecyclerView.adapter = todayMusicAdapter
-            todayMusicAdapter.submitList(todayMusicDummy())
+            todayMusicAdapter.submitList(todayMusicList)
 
             everydayMusicRecyclerView.addItemDecoration(TodayMusicAdapterDecoration())
             everydayMusicRecyclerView.adapter = everydayMusicAdapter
-            everydayMusicAdapter.submitList(everydayMusicDummy())
+            everydayMusicAdapter.submitList(everyMusicList)
 
             videoMusicRecyclerView.addItemDecoration(TodayMusicAdapterDecoration())
             videoMusicRecyclerView.adapter = videoMusicAdapter
-            videoMusicAdapter.submitList(videoMusicDummy())
+            videoMusicAdapter.submitList(videoMusicList)
 
         }
     }
@@ -67,42 +79,43 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun todayMusicDummy() : List<TodayMusic>{
-
-        val dummyList = mutableListOf<TodayMusic>()
+    private fun todayMusicDummy(){
 
         for (i in 1..6){
             val dummy = TodayMusic(i,"LILAC $i", "아이유 (IU)")
-            dummyList.add(dummy)
+            todayMusicList.add(dummy)
         }
-        return dummyList
     }
 
-    private fun everydayMusicDummy() : List<EverydayMusic>{
-
-        val dummyList = mutableListOf<EverydayMusic>()
+    private fun everydayMusicDummy(){
 
         for (i in 1..6){
             val dummy = EverydayMusic(i,"제목 $i", "가수")
-            dummyList.add(dummy)
+            everyMusicList.add(dummy)
         }
-        return dummyList
     }
 
-    private fun videoMusicDummy() : List<VideoMusic>{
-
-        val dummyList = mutableListOf<VideoMusic>()
-
+    private fun videoMusicDummy(){
         for (i in 1..6){
             val dummy = VideoMusic(i,"제목 $i", "가수")
-            dummyList.add(dummy)
+            videoMusicList.add(dummy)
         }
-        return dummyList
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun goAlbumFragment(position: Int) {
+
+        val bundle = Bundle().apply {
+            putString("albumName", todayMusicList[position].musicName)
+            putString("artistName", todayMusicList[position].artist)
+        }
+
+        findNavController().navigate(R.id.albumFragment,bundle)
+
     }
 }
 

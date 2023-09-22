@@ -6,10 +6,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.comst.flocloneapp.databinding.ItemTodayMusicBinding
+import com.comst.flocloneapp.listener.ItemTodayMusicListener
 import com.comst.flocloneapp.model.EverydayMusic
 import com.comst.flocloneapp.model.TodayMusic
 
-class TodayMusicAdapter : ListAdapter<TodayMusic, TodayMusicAdapter.TodayMusicListViewHolder>(DiffCallback) {
+class TodayMusicAdapter(private val listener : ItemTodayMusicListener) : ListAdapter<TodayMusic, TodayMusicAdapter.TodayMusicListViewHolder>(DiffCallback) {
 
     companion object{
         private val DiffCallback = object  : DiffUtil.ItemCallback<TodayMusic>(){
@@ -29,7 +30,11 @@ class TodayMusicAdapter : ListAdapter<TodayMusic, TodayMusicAdapter.TodayMusicLi
         fun bind(todayMusic : TodayMusic){
             binding.todayMusicTitleTextView.text = todayMusic.musicName
             binding.todayMusicArtistTextView.text = todayMusic.artist
+            binding.root.setOnClickListener {
+                listener.goAlbumFragment(adapterPosition)
+            }
         }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodayMusicListViewHolder {
