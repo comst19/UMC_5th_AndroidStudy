@@ -1,7 +1,9 @@
 package com.comst.flocloneapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
@@ -10,6 +12,17 @@ import com.comst.flocloneapp.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
+
+    private val registerLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()){ result ->
+        if (result.resultCode == 100){
+            val musicTitle = result.data?.getStringExtra("musicTitle")
+            val musicSinger = result.data?.getStringExtra("musicSinger")
+
+            binding.musicPlayTitle.text = musicTitle
+            binding.musicPlayArtist.text = musicSinger
+        }
+    }
 
     override fun onBackPressed() {
         val navController = findNavController(R.id.nav_host)
@@ -62,6 +75,11 @@ class MainActivity : AppCompatActivity() {
             } else {
                 false
             }
+        }
+
+        binding.playMusicLayout.setOnClickListener {
+            val intent = Intent(this, SongActivity::class.java)
+            registerLauncher.launch(intent)
         }
     }
 }
