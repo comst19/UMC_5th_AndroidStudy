@@ -13,10 +13,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.comst.flocloneapp.adapter.AlbumFragmentViewPagerAdapter
 import com.comst.flocloneapp.databinding.FragmentAlbumBinding
+import com.comst.flocloneapp.model.AlbumIncludeMusic
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
-class AlbumFragment : Fragment() {
+class AlbumFragment : Fragment(){
 
     private var _binding : FragmentAlbumBinding? = null
     private val binding get() = _binding!!

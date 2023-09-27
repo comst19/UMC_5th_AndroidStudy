@@ -5,12 +5,17 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.databinding.DataBindingUtil
 import com.comst.flocloneapp.databinding.ActivitySongBinding
+import com.comst.flocloneapp.model.AlbumIncludeMusic
+import com.comst.flocloneapp.viewmodel.MainViewModel
 
 class SongActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivitySongBinding
+    private val mainViewModel : MainViewModel by viewModels()
 
     var musicPlay = false
     var repeat = false
@@ -19,20 +24,25 @@ class SongActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivitySongBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_song)
+        val musicTitle = intent.getStringExtra("musicTitle")
+        val musicSinger = intent.getStringExtra("musicSinger")
 
+        val albumIncludeMusic = AlbumIncludeMusic(0, musicTitle!!, false, musicSinger!!)
+        mainViewModel.updateMiniPlayerUI(albumIncludeMusic)
         initView()
     }
 
     private fun initView(){
 
         with(binding){
+            vm = mainViewModel
 
             binding.toolbarLayout.setPadding(0,getStatusBarHeight(this@SongActivity)/2, 0, 0)
 
             songDownIb.setOnClickListener {
                 val intent = Intent(this@SongActivity, MainActivity::class.java)
+
                 intent.putExtra("musicTitle", songMusicTitleTv.text.toString())
                 intent.putExtra("musicSinger", songSingerNameTv.text.toString())
                 setResult(100, intent)

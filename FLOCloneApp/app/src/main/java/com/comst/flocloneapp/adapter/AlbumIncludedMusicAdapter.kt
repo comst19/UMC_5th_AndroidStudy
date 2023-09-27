@@ -7,9 +7,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.comst.flocloneapp.databinding.ItemAlbumIncludedSongBinding
+import com.comst.flocloneapp.listener.PlayMusicListener
 import com.comst.flocloneapp.model.AlbumIncludeMusic
 
-class AlbumIncludedMusicAdapter : ListAdapter<AlbumIncludeMusic, AlbumIncludedMusicAdapter.AlbumIncludedMusicListViewHolder>(DiffCallback) {
+class AlbumIncludedMusicAdapter(private val listener : PlayMusicListener) : ListAdapter<AlbumIncludeMusic, AlbumIncludedMusicAdapter.AlbumIncludedMusicListViewHolder>(DiffCallback) {
 
     companion object{
         private val DiffCallback = object  : DiffUtil.ItemCallback<AlbumIncludeMusic>(){
@@ -37,6 +38,10 @@ class AlbumIncludedMusicAdapter : ListAdapter<AlbumIncludeMusic, AlbumIncludedMu
                 binding.isTitleTextView.visibility = View.VISIBLE
             }else{
                 binding.isTitleTextView.visibility = View.GONE
+            }
+
+            binding.albumIncludedSongPlay.setOnClickListener {
+                listener.albumIncludedSongsPlay(albumIncludeMusic)
             }
         }
     }

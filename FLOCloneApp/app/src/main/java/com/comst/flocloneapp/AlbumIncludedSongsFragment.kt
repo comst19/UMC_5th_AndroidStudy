@@ -1,24 +1,29 @@
 package com.comst.flocloneapp
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.comst.flocloneapp.adapter.AlbumIncludedMusicAdapter
-import com.comst.flocloneapp.databinding.FragmentAlbumBinding
 import com.comst.flocloneapp.databinding.FragmentAlbumIncludedSongsBinding
+import com.comst.flocloneapp.listener.PlayMusicListener
 import com.comst.flocloneapp.model.AlbumIncludeMusic
-import com.comst.flocloneapp.model.TodayMusic
+import com.comst.flocloneapp.viewmodel.MainViewModel
 
 
-class AlbumIncludedSongsFragment : Fragment() {
+class AlbumIncludedSongsFragment : Fragment(), PlayMusicListener {
 
     private var _binding : FragmentAlbumIncludedSongsBinding? = null
     private val binding get() = _binding!!
 
-    private val albumIncludedMusicAdapter = AlbumIncludedMusicAdapter()
+    private val albumIncludedMusicAdapter = AlbumIncludedMusicAdapter(this)
     private val albumIncludeMusicList = mutableListOf<AlbumIncludeMusic>()
+    private val mainViewModel : MainViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,9 +65,11 @@ class AlbumIncludedSongsFragment : Fragment() {
         }
     }
 
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+    override fun albumIncludedSongsPlay(albumIncludeMusic: AlbumIncludeMusic) {
+        mainViewModel.updateMiniPlayerUI(albumIncludeMusic)
     }
 }
