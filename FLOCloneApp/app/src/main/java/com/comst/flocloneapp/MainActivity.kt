@@ -71,6 +71,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        binding.vm = mainViewModel
+
         binding.playMusicLayout.setOnClickListener {
             val intent = Intent(this, SongActivity::class.java)
             intent.putExtra("musicTitle", mainViewModel.musicPlayTitle.value)

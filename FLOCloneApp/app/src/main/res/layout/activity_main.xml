@@ -1,107 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <fragment
-        android:id="@+id/nav_host"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@id/playMusicLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/nav_bottom_graph" />
+    <data>
+        <variable
+            name="vm"
+            type="com.comst.flocloneapp.viewmodel.MainViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/playMusicLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="#F9F9F9"
-        android:paddingHorizontal="15dp"
-        android:paddingVertical="15dp"
-        app:layout_constraintBottom_toTopOf="@id/nav_bottom_bar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/musicPlayTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="제목"
-            android:textColor="@color/black"
-            android:textSize="15sp"
+        <fragment
+            android:id="@+id/nav_host"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:defaultNavHost="true"
+            app:layout_constraintBottom_toTopOf="@id/playMusicLayout"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:navGraph="@navigation/nav_bottom_graph" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/musicPlayArtist"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/playMusicLayout"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="가수"
-            android:textColor="#BBBBBB"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/musicPlayTitle" />
+            android:background="#F9F9F9"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="15dp"
+            app:layout_constraintBottom_toTopOf="@id/nav_bottom_bar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/lineRightArrow"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginEnd="15dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/playMusicList"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/btn_miniplayer_next" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/musicPlayTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{vm.musicPlayTitle}"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginEnd="15dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/playMusicStart"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/btn_miniplayer_previous" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/musicPlayArtist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{vm.musicPlayArtist}"
+                android:textColor="#BBBBBB"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/musicPlayTitle" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/playMusicList"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/lineRightArrow"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/playMusicList"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/btn_miniplayer_next" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/playMusicStart"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/btn_miniplayer_previous" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/playMusicList"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/btn_miniplayer_go_list" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/playMusicStart"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/lineRightArrow"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/btn_miniplayer_play" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/nav_bottom_bar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:itemActiveIndicatorStyle="@null"
+            app:itemIconTint="@drawable/btm_color_selector"
+            app:itemTextColor="@drawable/btm_color_selector"
+            app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/btn_miniplayer_go_list" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/nav_bottom_menu" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/playMusicStart"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="15dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/lineRightArrow"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/btn_miniplayer_play" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nav_bottom_bar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        app:itemActiveIndicatorStyle="@null"
-        app:itemIconTint="@drawable/btm_color_selector"
-        app:itemTextColor="@drawable/btm_color_selector"
-        app:labelVisibilityMode="labeled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/nav_bottom_menu" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
