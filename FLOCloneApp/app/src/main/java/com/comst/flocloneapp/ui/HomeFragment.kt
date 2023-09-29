@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.comst.flocloneapp.R
 import com.comst.flocloneapp.adapter.EverydayMusicAdapter
 import com.comst.flocloneapp.adapter.HomeBannerViewPagerAdapter
 import com.comst.flocloneapp.adapter.TodayMusicAdapter
@@ -21,6 +20,8 @@ import com.comst.flocloneapp.model.EverydayMusic
 import com.comst.flocloneapp.model.HomeBanner
 import com.comst.flocloneapp.model.TodayMusic
 import com.comst.flocloneapp.model.VideoMusic
+import com.comst.flocloneapp.R
+
 
 class HomeFragment : Fragment(), ItemTodayMusicListener {
 
@@ -74,6 +75,7 @@ class HomeFragment : Fragment(), ItemTodayMusicListener {
             binding.homeBannerViewPager.adapter = bannerAdapter
             binding.homeBannerViewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
             bannerAdapter.submitList(homeBannerList)
+            binding.homeBannerIndicator.setViewPager(binding.homeBannerViewPager)
 
         }
     }

@@ -18,21 +18,31 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/homeBannerViewPager"
                 android:layout_width="0dp"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_height="380dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_height="380dp"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <me.relex.circleindicator.CircleIndicator3
+                android:id="@+id/homeBannerIndicator"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                app:ci_drawable="@drawable/indicator_select"
+                app:ci_drawable_unselected="@drawable/indicator_unselect"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/homeBannerViewPager" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/todayMusicLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/homeBannerViewPager">
+                app:layout_constraintTop_toBottomOf="@id/homeBannerIndicator">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/todayMusicTitleTextView"
@@ -268,23 +278,23 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
                 android:id="@+id/company"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="(주)드림어스컴퍼니 사업자 정보"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/socialLayout"/>
+                app:layout_constraintTop_toBottomOf="@id/socialLayout" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:scaleType="centerCrop"
-                app:layout_constraintTop_toTopOf="@id/company"
                 app:layout_constraintBottom_toBottomOf="@id/company"
                 app:layout_constraintStart_toEndOf="@id/company"
-                app:srcCompat="@drawable/btn_main_arrow_more"/>
+                app:layout_constraintTop_toTopOf="@id/company"
+                app:srcCompat="@drawable/btn_main_arrow_more" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
