@@ -25,7 +25,6 @@ class HomeBannerViewPagerAdapter : ListAdapter<HomeBanner, HomeBannerViewPagerAd
         }
     }
 
-
     inner class HomeBannerViewHolder(private val binding : ItemBannerBinding) : RecyclerView.ViewHolder(binding.root){
 
         fun bind(homeBanner : HomeBanner){
@@ -42,4 +41,7 @@ class HomeBannerViewPagerAdapter : ListAdapter<HomeBanner, HomeBannerViewPagerAd
         holder.bind(getItem(position))
     }
 
+    override fun getItemCount(): Int {
+        return 6
+    }
 }

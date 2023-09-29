@@ -9,7 +9,7 @@ import com.comst.flocloneapp.model.AlbumIncludeMusic
 class MainViewModel : ViewModel() {
 
 
-    private val _musicPlayTitle = MutableLiveData<String>("")
+    private val _musicPlayTitle = MutableLiveData<String>("재생목록이 비었습니다.")
     val musicPlayTitle : LiveData<String> get() = _musicPlayTitle
 
     private val _musicPlayArtist = MutableLiveData<String>("")

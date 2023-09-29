@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -21,6 +22,9 @@ import com.comst.flocloneapp.model.HomeBanner
 import com.comst.flocloneapp.model.TodayMusic
 import com.comst.flocloneapp.model.VideoMusic
 import com.comst.flocloneapp.R
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 
 
 class HomeFragment : Fragment(), ItemTodayMusicListener {
@@ -77,6 +81,17 @@ class HomeFragment : Fragment(), ItemTodayMusicListener {
             bannerAdapter.submitList(homeBannerList)
             binding.homeBannerIndicator.setViewPager(binding.homeBannerViewPager)
 
+            binding.homeBannerIndicator.createIndicators(6, 0)
+
+            viewLifecycleOwner.lifecycleScope.launch {
+                while (isActive){
+                    delay(3000L)
+                    val currentPage = binding.homeBannerViewPager.currentItem
+                    val totalPages = binding.homeBannerViewPager.adapter?.itemCount ?: 0
+                    val nextPage = (currentPage + 1) % totalPages
+                    binding.homeBannerViewPager.setCurrentItem(nextPage, false)
+                }
+            }
         }
     }
 
