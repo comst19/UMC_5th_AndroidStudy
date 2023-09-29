@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.comst.flocloneapp.HomeFragment"
+        android:name="com.comst.flocloneapp.ui.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
         <action
@@ -17,28 +17,28 @@
     </fragment>
     <fragment
         android:id="@+id/lookFragment"
-        android:name="com.comst.flocloneapp.LookFragment"
+        android:name="com.comst.flocloneapp.ui.LookFragment"
         android:label="fragment_look"
         tools:layout="@layout/fragment_look" />
     <fragment
         android:id="@+id/lockerFragment"
-        android:name="com.comst.flocloneapp.LockerFragment"
+        android:name="com.comst.flocloneapp.ui.LockerFragment"
         android:label="fragment_locker"
         tools:layout="@layout/fragment_locker" />
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.comst.flocloneapp.SearchFragment"
+        android:name="com.comst.flocloneapp.ui.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
     <activity
         android:id="@+id/mainActivity"
-        android:name="com.comst.flocloneapp.MainActivity"
+        android:name="com.comst.flocloneapp.ui.MainActivity"
         android:label="activity_main"
         tools:layout="@layout/activity_main" />
 
     <fragment
         android:id="@+id/albumFragment"
-        android:name="com.comst.flocloneapp.AlbumFragment"
+        android:name="com.comst.flocloneapp.ui.AlbumFragment"
         android:label="fragment_album"
         tools:layout="@layout/fragment_album">
 

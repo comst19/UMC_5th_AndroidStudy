@@ -1,13 +1,13 @@
-package com.comst.flocloneapp
+package com.comst.flocloneapp.ui
 
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.databinding.DataBindingUtil
+import com.comst.flocloneapp.R
 import com.comst.flocloneapp.databinding.ActivitySongBinding
 import com.comst.flocloneapp.model.AlbumIncludeMusic
 import com.comst.flocloneapp.viewmodel.MainViewModel
@@ -24,7 +24,7 @@ class SongActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_song)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_song)
         val musicTitle = intent.getStringExtra("musicTitle")
         val musicSinger = intent.getStringExtra("musicSinger")
 
@@ -52,27 +52,39 @@ class SongActivity : AppCompatActivity() {
             songMiniplayerIv.setOnClickListener {
                 musicPlay = !musicPlay
                 if (musicPlay){
-                    songMiniplayerIv.setImageDrawable(AppCompatResources.getDrawable(this@SongActivity, R.drawable.btn_miniplay_pause))
+                    songMiniplayerIv.setImageDrawable(AppCompatResources.getDrawable(this@SongActivity,
+                        R.drawable.btn_miniplay_pause
+                    ))
                 }else{
-                    songMiniplayerIv.setImageDrawable(AppCompatResources.getDrawable(this@SongActivity, R.drawable.btn_miniplayer_play))
+                    songMiniplayerIv.setImageDrawable(AppCompatResources.getDrawable(this@SongActivity,
+                        R.drawable.btn_miniplayer_play
+                    ))
                 }
             }
 
             songRepeatIv.setOnClickListener {
                 repeat = !repeat
                 if (repeat){
-                    songRepeatIv.setImageDrawable(AppCompatResources.getDrawable(this@SongActivity, R.drawable.nugu_btn_repeat_inactive_blue))
+                    songRepeatIv.setImageDrawable(AppCompatResources.getDrawable(this@SongActivity,
+                        R.drawable.nugu_btn_repeat_inactive_blue
+                    ))
                 }else{
-                    songRepeatIv.setImageDrawable(AppCompatResources.getDrawable(this@SongActivity, R.drawable.nugu_btn_repeat_inactive))
+                    songRepeatIv.setImageDrawable(AppCompatResources.getDrawable(this@SongActivity,
+                        R.drawable.nugu_btn_repeat_inactive
+                    ))
                 }
             }
 
             songRandomIv.setOnClickListener {
                 shuffle = !shuffle
                 if (shuffle){
-                    songRandomIv.setImageDrawable(AppCompatResources.getDrawable(this@SongActivity, R.drawable.nugu_btn_random_inactive_blue))
+                    songRandomIv.setImageDrawable(AppCompatResources.getDrawable(this@SongActivity,
+                        R.drawable.nugu_btn_random_inactive_blue
+                    ))
                 }else{
-                    songRandomIv.setImageDrawable(AppCompatResources.getDrawable(this@SongActivity, R.drawable.nugu_btn_random_inactive))
+                    songRandomIv.setImageDrawable(AppCompatResources.getDrawable(this@SongActivity,
+                        R.drawable.nugu_btn_random_inactive
+                    ))
                 }
             }
         }

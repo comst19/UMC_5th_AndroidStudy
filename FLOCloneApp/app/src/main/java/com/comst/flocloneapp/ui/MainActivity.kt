@@ -1,4 +1,4 @@
-package com.comst.flocloneapp
+package com.comst.flocloneapp.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import com.comst.flocloneapp.R
 import com.comst.flocloneapp.databinding.ActivityMainBinding
 import com.comst.flocloneapp.model.AlbumIncludeMusic
 import com.comst.flocloneapp.viewmodel.MainViewModel
@@ -41,25 +42,29 @@ class MainActivity : AppCompatActivity() {
             if (navController.currentDestination?.id != item.itemId) {
                 when (item.itemId) {
                     R.id.homeFragment -> {
-                        navController.navigate(R.id.homeFragment, null, NavOptions.Builder()
+                        navController.navigate(
+                            R.id.homeFragment, null, NavOptions.Builder()
                             .setPopUpTo(R.id.nav_bottom_graph, true)
                             .build())
                         true
                     }
                     R.id.lookFragment -> {
-                        navController.navigate(R.id.lookFragment, null, NavOptions.Builder()
+                        navController.navigate(
+                            R.id.lookFragment, null, NavOptions.Builder()
                             .setPopUpTo(R.id.nav_bottom_graph, true)
                             .build())
                         true
                     }
                     R.id.searchFragment -> {
-                        navController.navigate(R.id.searchFragment, null, NavOptions.Builder()
+                        navController.navigate(
+                            R.id.searchFragment, null, NavOptions.Builder()
                             .setPopUpTo(R.id.nav_bottom_graph, true)
                             .build())
                         true
                     }
                     R.id.lockerFragment -> {
-                        navController.navigate(R.id.lockerFragment, null, NavOptions.Builder()
+                        navController.navigate(
+                            R.id.lockerFragment, null, NavOptions.Builder()
                             .setPopUpTo(R.id.nav_bottom_graph, true)
                             .build())
                         true

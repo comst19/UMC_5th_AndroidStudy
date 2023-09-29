@@ -1,4 +1,4 @@
-package com.comst.flocloneapp
+package com.comst.flocloneapp.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -8,12 +8,11 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
+import com.comst.flocloneapp.R
 import com.comst.flocloneapp.adapter.AlbumFragmentViewPagerAdapter
 import com.comst.flocloneapp.databinding.FragmentAlbumBinding
-import com.comst.flocloneapp.model.AlbumIncludeMusic
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 

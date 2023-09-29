@@ -1,4 +1,4 @@
-package com.comst.flocloneapp
+package com.comst.flocloneapp.ui
 
 import android.content.Context
 import android.graphics.Rect
@@ -6,16 +6,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
+import com.comst.flocloneapp.R
 import com.comst.flocloneapp.adapter.EverydayMusicAdapter
+import com.comst.flocloneapp.adapter.HomeBannerViewPagerAdapter
 import com.comst.flocloneapp.adapter.TodayMusicAdapter
 import com.comst.flocloneapp.adapter.VideoMusicAdapter
 import com.comst.flocloneapp.databinding.FragmentHomeBinding
 import com.comst.flocloneapp.listener.ItemTodayMusicListener
 import com.comst.flocloneapp.model.EverydayMusic
+import com.comst.flocloneapp.model.HomeBanner
 import com.comst.flocloneapp.model.TodayMusic
 import com.comst.flocloneapp.model.VideoMusic
 
@@ -27,10 +30,13 @@ class HomeFragment : Fragment(), ItemTodayMusicListener {
     private val todayMusicAdapter = TodayMusicAdapter(this)
     private val everydayMusicAdapter = EverydayMusicAdapter()
     private val videoMusicAdapter = VideoMusicAdapter()
+    private val bannerAdapter = HomeBannerViewPagerAdapter()
 
     private val todayMusicList = mutableListOf<TodayMusic>()
     private val everyMusicList = mutableListOf<EverydayMusic>()
     private val videoMusicList = mutableListOf<VideoMusic>()
+    private val homeBannerList = mutableListOf<HomeBanner>()
+
 
 
     override fun onCreateView(
@@ -39,7 +45,6 @@ class HomeFragment : Fragment(), ItemTodayMusicListener {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        binding.appbarLayout.setPadding(0,getStatusBarHeight(requireContext())/2, 0, 0)
 
         initView()
 
@@ -52,6 +57,7 @@ class HomeFragment : Fragment(), ItemTodayMusicListener {
             todayMusicDummy()
             everydayMusicDummy()
             videoMusicDummy()
+            homeBannerDummy()
 
             todayMusicRecyclerView.addItemDecoration(TodayMusicAdapterDecoration())
             todayMusicRecyclerView.adapter = todayMusicAdapter
@@ -64,6 +70,10 @@ class HomeFragment : Fragment(), ItemTodayMusicListener {
             videoMusicRecyclerView.addItemDecoration(TodayMusicAdapterDecoration())
             videoMusicRecyclerView.adapter = videoMusicAdapter
             videoMusicAdapter.submitList(videoMusicList)
+
+            binding.homeBannerViewPager.adapter = bannerAdapter
+            binding.homeBannerViewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+            bannerAdapter.submitList(homeBannerList)
 
         }
     }
@@ -99,6 +109,21 @@ class HomeFragment : Fragment(), ItemTodayMusicListener {
         for (i in 1..6){
             val dummy = VideoMusic(i,"제목 $i", "가수")
             videoMusicList.add(dummy)
+        }
+    }
+
+    private fun homeBannerDummy(){
+
+        val bannerTitleList = mutableListOf<String>(
+            "늘어지는 오후에 어울리는 멜로우 팝",
+            "기타 선율이 매력적인 팝 모음 ❤️",
+            "나만 알고 싶은 쓸쓸한 맛 K-발라드",
+            "어쿠스틱한 팝이 흐르는 감성",
+            "선선한 가을 날씨, 그리고 코지무드",
+            "잠 안오는 새벽을 채워줄 팝")
+        for (i in 1..6){
+            val dummy = HomeBanner(i,bannerTitleList[i-1])
+            homeBannerList.add(dummy)
         }
     }
 
