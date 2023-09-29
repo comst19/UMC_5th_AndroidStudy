@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="380dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/bannerBackground"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:srcCompat="@drawable/img_first_album_default"
+        android:scaleType="centerCrop"/>
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="wrap_content"
+        app:menu="@menu/toolbar_menu" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/titleTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="포근하게 덮어주는 꿈의 목소리"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:layout_marginStart="20dp"
+        app:layout_constraintEnd_toStartOf="@id/playImageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/playImageView"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.200"
+        app:srcCompat="@drawable/btn_panel_play_large" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/totalMusicTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:text="총 15곡 2019.11.11"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/musicImageView1"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/musicImageView2"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/musicImageView1"
+        app:srcCompat="@drawable/img_album_exp" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/musicImageView1"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@id/musicImageView2"
+        app:layout_constraintStart_toStartOf="@+id/totalMusicTextView"
+        app:srcCompat="@drawable/img_album_exp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/musicTitleTextView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10sp"
+        android:text="잠이 안온다"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/musicImageView1"
+        app:layout_constraintTop_toTopOf="@id/musicImageView1" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/musicArtistTextView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="젠(zen)"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/musicImageView1"
+        app:layout_constraintStart_toStartOf="@id/musicTitleTextView1" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/musicTitleTextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10sp"
+        android:text="잠이 안온다"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/musicImageView2"
+        app:layout_constraintTop_toTopOf="@id/musicImageView2" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/musicArtistTextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="젠(zen)"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/musicImageView2"
+        app:layout_constraintStart_toStartOf="@id/musicTitleTextView2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
