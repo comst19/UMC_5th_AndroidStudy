@@ -22,5 +22,17 @@
 
     </style>
 
+    <style name="Base.Theme.SplashActivity" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_flo_logo</item>
+        <item name="postSplashScreenTheme">@style/Theme.FLOCloneApp</item>
+
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
     <style name="Theme.FLOCloneApp" parent="Base.Theme.FLOCloneApp" />
+    <style name="Theme.SplashActivity" parent="Base.Theme.SplashActivity"/>
 </resources>
