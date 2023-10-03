@@ -9,10 +9,12 @@ import com.comst.flocloneapp.R
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        installSplashScreen()
 
+        installSplashScreen()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 }

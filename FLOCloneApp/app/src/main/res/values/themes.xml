@@ -22,10 +22,10 @@
 
     </style>
 
-    <style name="Base.Theme.SplashActivity" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.SplashActivity" parent="Theme.SplashScreen">
 
         <item name="windowSplashScreenBackground">@color/white</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_flo_logo</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_flo_logo_4</item>
         <item name="postSplashScreenTheme">@style/Theme.FLOCloneApp</item>
 
         <item name="android:statusBarColor">@color/white</item>
