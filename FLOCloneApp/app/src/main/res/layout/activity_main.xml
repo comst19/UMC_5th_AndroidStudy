@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vm"
-            type="com.comst.flocloneapp.viewmodel.MainViewModel" />
+            type="com.comst.flocloneapp.viewmodel.MiniPlayerViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,11 +20,27 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:defaultNavHost="true"
-            app:layout_constraintBottom_toTopOf="@id/playMusicLayout"
+            app:layout_constraintBottom_toTopOf="@id/song_progress_sb"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:navGraph="@navigation/nav_bottom_graph" />
+
+        <SeekBar
+            android:id="@+id/song_progress_sb"
+            android:layout_width="0dp"
+            android:layout_height="10dp"
+            android:background="@null"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            android:progress="@{vm.musicTime}"
+            android:progressBackgroundTint="@color/song_player_bg"
+            android:progressTint="@color/song_player"
+            android:thumb="@color/transparent"
+            android:max="60"
+            app:layout_constraintBottom_toTopOf="@id/playMusicLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/playMusicLayout"
@@ -58,7 +74,7 @@
                 app:layout_constraintTop_toBottomOf="@id/musicPlayTitle" />
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/lineRightArrow"
+                android:id="@+id/song_next_iv"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_marginEnd="15dp"
@@ -68,6 +84,7 @@
                 app:srcCompat="@drawable/btn_miniplayer_next" />
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/song_previous_iv"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_marginEnd="15dp"
@@ -91,7 +108,7 @@
                 android:layout_height="40dp"
                 android:layout_marginEnd="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/lineRightArrow"
+                app:layout_constraintEnd_toStartOf="@id/song_next_iv"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/btn_miniplayer_play" />
 

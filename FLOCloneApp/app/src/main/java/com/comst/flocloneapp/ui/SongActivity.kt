@@ -8,10 +8,13 @@ import android.widget.SeekBar
 import androidx.activity.viewModels
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.comst.flocloneapp.R
 import com.comst.flocloneapp.databinding.ActivitySongBinding
 import com.comst.flocloneapp.model.AlbumIncludeMusic
 import com.comst.flocloneapp.viewmodel.MainViewModel
+import com.comst.flocloneapp.viewmodel.MiniPlayerFactory
+import com.comst.flocloneapp.viewmodel.MiniPlayerViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -22,8 +25,7 @@ import java.util.concurrent.TimeUnit
 class SongActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivitySongBinding
-    private val mainViewModel : MainViewModel by viewModels()
-    private var job : Job? = null
+    private lateinit var miniPlayerViewModel: MiniPlayerViewModel
 
 
     var repeat = false
@@ -37,7 +39,10 @@ class SongActivity : AppCompatActivity() {
         val musicSinger = intent.getStringExtra("musicSinger")
 
         val albumIncludeMusic = AlbumIncludeMusic(0, musicTitle!!, false, musicSinger!!)
-        mainViewModel.updateMiniPlayerUI(albumIncludeMusic)
+
+        miniPlayerViewModel = ViewModelProvider(this, MiniPlayerFactory(application)).get(MiniPlayerViewModel::class.java)
+
+        miniPlayerViewModel.updateMiniPlayerUI(albumIncludeMusic)
         initView()
         setObserve()
     }
@@ -45,7 +50,7 @@ class SongActivity : AppCompatActivity() {
     private fun initView(){
 
         with(binding){
-            vm = mainViewModel
+            vm = miniPlayerViewModel
             lifecycleOwner = this@SongActivity
 
             binding.toolbarLayout.setPadding(0,getStatusBarHeight(this@SongActivity)/2, 0, 0)
@@ -60,7 +65,7 @@ class SongActivity : AppCompatActivity() {
             }
 
             songMiniplayerIv.setOnClickListener {
-                mainViewModel.musicPlay.value = !mainViewModel.musicPlay.value!!
+                miniPlayerViewModel.musicPlay.value = !miniPlayerViewModel.musicPlay.value!!
             }
 
             songProgressSb.setOnSeekBarChangeListener(object  : SeekBar.OnSeekBarChangeListener{
@@ -75,13 +80,13 @@ class SongActivity : AppCompatActivity() {
                 }
 
                 override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                    mainViewModel.setMusicTime(songProgressSb.progress)
-                    updateTimerText(mainViewModel.musicTime.value!!)
+                    miniPlayerViewModel.setMusicTime(songProgressSb.progress)
+                    updateTimerText(miniPlayerViewModel.musicTime.value!!)
                 }
 
                 override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                    mainViewModel.setMusicTime(songProgressSb.progress)
-                    updateTimerText(mainViewModel.musicTime.value!!)
+                    miniPlayerViewModel.setMusicTime(songProgressSb.progress)
+                    updateTimerText(miniPlayerViewModel.musicTime.value!!)
                 }
 
             })
@@ -113,41 +118,42 @@ class SongActivity : AppCompatActivity() {
             }
 
             songNextIv.setOnClickListener {
-                mainViewModel.setMusicTime((songProgressSb.progress + 5).coerceAtMost(songProgressSb.max))
+                miniPlayerViewModel.setMusicTime((songProgressSb.progress + 5).coerceAtMost(songProgressSb.max))
 
             }
             songPreviousIv.setOnClickListener {
-                mainViewModel.setMusicTime((songProgressSb.progress - 5).coerceAtLeast(0))
+                miniPlayerViewModel.setMusicTime((songProgressSb.progress - 5).coerceAtLeast(0))
             }
         }
     }
 
     private fun setObserve(){
 
-        mainViewModel.musicTime.observe(this){
+        miniPlayerViewModel.musicTime.observe(this){
             if (it == 60){
-                job?.cancel()
-                mainViewModel.musicPlay.value = false
+                miniPlayerViewModel.job?.cancel()
+                miniPlayerViewModel.musicPlay.value = false
             }
-            updateTimerText(mainViewModel.musicTime.value!!)
+            updateTimerText(miniPlayerViewModel.musicTime.value!!)
         }
 
-        mainViewModel.musicPlay.observe(this){
+
+        miniPlayerViewModel.musicPlay.observe(this){
             if (it){
                 binding.songMiniplayerIv.setImageDrawable(AppCompatResources.getDrawable(this@SongActivity,
                     R.drawable.btn_miniplay_pause
                 ))
-                job = CoroutineScope(Dispatchers.Main).launch {
+                miniPlayerViewModel.job = CoroutineScope(Dispatchers.Main).launch {
                     while (it && binding.songProgressSb.progress < binding.songProgressSb.max){
                         delay(1000)
-                        mainViewModel.setMusicTime(mainViewModel.musicTime.value?.plus(1) ?: 0)
+                        miniPlayerViewModel.setMusicTime(miniPlayerViewModel.musicTime.value?.plus(1) ?: 0)
                     }
                 }
             }else{
                 binding.songMiniplayerIv.setImageDrawable(AppCompatResources.getDrawable(this@SongActivity,
                     R.drawable.btn_miniplayer_play
                 ))
-                job?.cancel()
+                miniPlayerViewModel.job?.cancel()
             }
         }
     }

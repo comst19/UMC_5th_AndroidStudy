@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vm"
-            type="com.comst.flocloneapp.viewmodel.MainViewModel" />
+            type="com.comst.flocloneapp.viewmodel.MiniPlayerViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

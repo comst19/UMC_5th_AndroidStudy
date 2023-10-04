@@ -11,6 +11,7 @@ import com.comst.flocloneapp.databinding.FragmentAlbumIncludedSongsBinding
 import com.comst.flocloneapp.listener.PlayMusicListener
 import com.comst.flocloneapp.model.AlbumIncludeMusic
 import com.comst.flocloneapp.viewmodel.MainViewModel
+import com.comst.flocloneapp.viewmodel.MiniPlayerViewModel
 
 
 class AlbumIncludedSongsFragment : Fragment(), PlayMusicListener {
@@ -20,7 +21,7 @@ class AlbumIncludedSongsFragment : Fragment(), PlayMusicListener {
 
     private val albumIncludedMusicAdapter = AlbumIncludedMusicAdapter(this)
     private val albumIncludeMusicList = mutableListOf<AlbumIncludeMusic>()
-    private val mainViewModel : MainViewModel by activityViewModels()
+    private val mainViewModel : MiniPlayerViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
