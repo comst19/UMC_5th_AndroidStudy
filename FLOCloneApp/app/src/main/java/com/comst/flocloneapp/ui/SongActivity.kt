@@ -8,16 +8,12 @@ import android.widget.SeekBar
 import androidx.activity.viewModels
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import com.comst.flocloneapp.R
 import com.comst.flocloneapp.databinding.ActivitySongBinding
 import com.comst.flocloneapp.model.AlbumIncludeMusic
-import com.comst.flocloneapp.viewmodel.MainViewModel
-import com.comst.flocloneapp.viewmodel.MiniPlayerFactory
 import com.comst.flocloneapp.viewmodel.MiniPlayerViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
@@ -25,7 +21,7 @@ import java.util.concurrent.TimeUnit
 class SongActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivitySongBinding
-    private lateinit var miniPlayerViewModel: MiniPlayerViewModel
+    private val miniPlayerViewModel : MiniPlayerViewModel by viewModels()
 
 
     var repeat = false
@@ -39,8 +35,6 @@ class SongActivity : AppCompatActivity() {
         val musicSinger = intent.getStringExtra("musicSinger")
 
         val albumIncludeMusic = AlbumIncludeMusic(0, musicTitle!!, false, musicSinger!!)
-
-        miniPlayerViewModel = ViewModelProvider(this, MiniPlayerFactory(application)).get(MiniPlayerViewModel::class.java)
 
         miniPlayerViewModel.updateMiniPlayerUI(albumIncludeMusic)
         initView()

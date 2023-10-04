@@ -1,6 +1,5 @@
 package com.comst.flocloneapp.ui
 
-import android.app.Application
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,15 +7,12 @@ import android.widget.SeekBar
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.comst.flocloneapp.R
 import com.comst.flocloneapp.databinding.ActivityMainBinding
 import com.comst.flocloneapp.model.AlbumIncludeMusic
-import com.comst.flocloneapp.viewmodel.MainViewModel
-import com.comst.flocloneapp.viewmodel.MiniPlayerFactory
 import com.comst.flocloneapp.viewmodel.MiniPlayerViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -26,8 +22,7 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
-    private val mainViewModel : MainViewModel by viewModels()
-    private lateinit var miniPlayerViewModel: MiniPlayerViewModel
+    private val miniPlayerViewModel : MiniPlayerViewModel by viewModels()
 
 
     private val registerLauncher = registerForActivityResult(
@@ -50,11 +45,6 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host)
         NavigationUI.setupWithNavController(binding.navBottomBar, findNavController(R.id.nav_host))
-
-        miniPlayerViewModel = ViewModelProvider(
-            this@MainActivity,
-            MiniPlayerFactory(application)
-        ).get(MiniPlayerViewModel::class.java)
 
         binding.navBottomBar.setOnItemSelectedListener { item ->
             if (navController.currentDestination?.id != item.itemId) {
