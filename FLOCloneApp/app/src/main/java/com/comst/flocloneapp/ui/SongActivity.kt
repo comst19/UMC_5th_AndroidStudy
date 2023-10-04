@@ -5,7 +5,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.SeekBar
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.databinding.DataBindingUtil
@@ -47,6 +46,7 @@ class SongActivity : AppCompatActivity() {
 
         with(binding){
             vm = mainViewModel
+            lifecycleOwner = this@SongActivity
 
             binding.toolbarLayout.setPadding(0,getStatusBarHeight(this@SongActivity)/2, 0, 0)
 
@@ -113,13 +113,11 @@ class SongActivity : AppCompatActivity() {
             }
 
             songNextIv.setOnClickListener {
-                songProgressSb.progress = (songProgressSb.progress + 5).coerceAtMost(songProgressSb.max)
-                mainViewModel.setMusicTime(songProgressSb.progress)
+                mainViewModel.setMusicTime((songProgressSb.progress + 5).coerceAtMost(songProgressSb.max))
 
             }
             songPreviousIv.setOnClickListener {
-                songProgressSb.progress = (songProgressSb.progress - 5).coerceAtLeast(0)
-                mainViewModel.setMusicTime(songProgressSb.progress)
+                mainViewModel.setMusicTime((songProgressSb.progress - 5).coerceAtLeast(0))
             }
         }
     }
@@ -143,7 +141,6 @@ class SongActivity : AppCompatActivity() {
                     while (it && binding.songProgressSb.progress < binding.songProgressSb.max){
                         delay(1000)
                         mainViewModel.setMusicTime(mainViewModel.musicTime.value?.plus(1) ?: 0)
-                        binding.songProgressSb.progress = mainViewModel.musicTime.value!!
                     }
                 }
             }else{
