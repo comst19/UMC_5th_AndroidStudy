@@ -4,9 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
@@ -22,18 +24,28 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
-    private val miniPlayerViewModel : MiniPlayerViewModel by viewModels()
+    private val miniPlayerViewModel : MiniPlayerViewModel by viewModels{
+        ViewModelProvider.AndroidViewModelFactory.getInstance(application)
+    }
 
 
     private val registerLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()){ result ->
         if (result.resultCode == 100){
+
             val musicTitle = result.data?.getStringExtra("musicTitle")
             val musicSinger = result.data?.getStringExtra("musicSinger")
+            val musicTime = intent.getIntExtra("musicTime", 0)
+            val musicPlay = intent.getBooleanExtra("musicPlay", false)
+            Toast.makeText(this@MainActivity, "${miniPlayerViewModel.musicTime.value}\n  ${miniPlayerViewModel.musicPlay.value} \n받은 거 : ${musicPlay}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@MainActivity, "받은 거 : ${musicPlay}", Toast.LENGTH_SHORT).show()
 
             val albumIncludeMusic = AlbumIncludeMusic(0, musicTitle!!, false, musicSinger!!)
-            //mainViewModel.updateMiniPlayerUI(albumIncludeMusic)
             miniPlayerViewModel.updateMiniPlayerUI(albumIncludeMusic)
+
+            miniPlayerViewModel.setMusicTime(musicTime)
+            miniPlayerViewModel.musicPlay.value = musicPlay
+
         }
     }
 
@@ -84,13 +96,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        binding.vm = miniPlayerViewModel
-
         binding.playMusicLayout.setOnClickListener {
             val intent = Intent(this, SongActivity::class.java)
             intent.putExtra("musicTitle", miniPlayerViewModel.musicPlayTitle.value)
             intent.putExtra("musicSinger", miniPlayerViewModel.musicPlayArtist.value)
+            intent.putExtra("musicTime", miniPlayerViewModel.musicTime.value)
+            intent.putExtra("musicPlay", miniPlayerViewModel.musicPlay.value)
+
             registerLauncher.launch(intent)
+
         }
 
         initView()
@@ -110,6 +124,7 @@ class MainActivity : AppCompatActivity() {
                 miniPlayerViewModel.job?.cancel()
                 miniPlayerViewModel.musicPlay.value = false
             }
+            //miniPlayerViewModel.setMusicTime(it)
         }
 
 

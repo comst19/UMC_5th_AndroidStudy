@@ -5,9 +5,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.comst.flocloneapp.R
 import com.comst.flocloneapp.databinding.ActivitySongBinding
 import com.comst.flocloneapp.model.AlbumIncludeMusic
@@ -21,7 +23,9 @@ import java.util.concurrent.TimeUnit
 class SongActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivitySongBinding
-    private val miniPlayerViewModel : MiniPlayerViewModel by viewModels()
+    private val miniPlayerViewModel : MiniPlayerViewModel by viewModels{
+        ViewModelProvider.AndroidViewModelFactory.getInstance(application)
+    }
 
 
     var repeat = false
@@ -33,10 +37,17 @@ class SongActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_song)
         val musicTitle = intent.getStringExtra("musicTitle")
         val musicSinger = intent.getStringExtra("musicSinger")
+        val musicTime = intent.getIntExtra("musicTime", 0)
+        val musicPlay = intent.getBooleanExtra("musicPlay", false)
 
         val albumIncludeMusic = AlbumIncludeMusic(0, musicTitle!!, false, musicSinger!!)
 
         miniPlayerViewModel.updateMiniPlayerUI(albumIncludeMusic)
+
+        miniPlayerViewModel.setMusicTime(musicTime)
+        updateTimerText(musicTime)
+        miniPlayerViewModel.musicPlay.value = musicPlay
+
         initView()
         setObserve()
     }
@@ -52,8 +63,17 @@ class SongActivity : AppCompatActivity() {
             songDownIb.setOnClickListener {
                 val intent = Intent(this@SongActivity, MainActivity::class.java)
 
-                intent.putExtra("musicTitle", songMusicTitleTv.text.toString())
-                intent.putExtra("musicSinger", songSingerNameTv.text.toString())
+                val musicTitle = miniPlayerViewModel.musicPlayTitle.value
+                val musicSinger = miniPlayerViewModel.musicPlayArtist.value
+                val musicTime = miniPlayerViewModel.musicTime.value
+                val musicPlay = miniPlayerViewModel.musicPlay.value
+
+                intent.putExtra("musicTitle", musicTitle)
+                intent.putExtra("musicSinger", musicSinger)
+                intent.putExtra("musicTime", musicTime)
+                intent.putExtra("musicPlay", musicPlay)
+//                Toast.makeText(this@SongActivity, "${miniPlayerViewModel.musicTime.value}\n${miniPlayerViewModel.musicPlay.value}", Toast.LENGTH_SHORT).show()
+
                 setResult(100, intent)
                 finish()
             }
