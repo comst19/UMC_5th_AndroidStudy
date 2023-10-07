@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -23,18 +24,21 @@ import java.util.concurrent.TimeUnit
 class SongActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivitySongBinding
-    private val miniPlayerViewModel : MiniPlayerViewModel by viewModels{
-        ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-    }
-
+    private lateinit var miniPlayerViewModel : MiniPlayerViewModel
 
     var repeat = false
     var shuffle = false
 
+    override fun onBackPressed() {
+        goMainActivity()
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_song)
+        miniPlayerViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory(application))
+            .get(MiniPlayerViewModel::class.java)
+
         val musicTitle = intent.getStringExtra("musicTitle")
         val musicSinger = intent.getStringExtra("musicSinger")
         val musicTime = intent.getIntExtra("musicTime", 0)
@@ -61,21 +65,7 @@ class SongActivity : AppCompatActivity() {
             binding.toolbarLayout.setPadding(0,getStatusBarHeight(this@SongActivity)/2, 0, 0)
 
             songDownIb.setOnClickListener {
-                val intent = Intent(this@SongActivity, MainActivity::class.java)
-
-                val musicTitle = miniPlayerViewModel.musicPlayTitle.value
-                val musicSinger = miniPlayerViewModel.musicPlayArtist.value
-                val musicTime = miniPlayerViewModel.musicTime.value
-                val musicPlay = miniPlayerViewModel.musicPlay.value
-
-                intent.putExtra("musicTitle", musicTitle)
-                intent.putExtra("musicSinger", musicSinger)
-                intent.putExtra("musicTime", musicTime)
-                intent.putExtra("musicPlay", musicPlay)
-//                Toast.makeText(this@SongActivity, "${miniPlayerViewModel.musicTime.value}\n${miniPlayerViewModel.musicPlay.value}", Toast.LENGTH_SHORT).show()
-
-                setResult(100, intent)
-                finish()
+                goMainActivity()
             }
 
             songMiniplayerIv.setOnClickListener {
@@ -139,6 +129,25 @@ class SongActivity : AppCompatActivity() {
                 miniPlayerViewModel.setMusicTime((songProgressSb.progress - 5).coerceAtLeast(0))
             }
         }
+    }
+
+    private fun goMainActivity(){
+        val intent = Intent(this@SongActivity, MainActivity::class.java)
+
+        val musicTitle = miniPlayerViewModel.musicPlayTitle.value
+        val musicSinger = miniPlayerViewModel.musicPlayArtist.value
+        val musicTime = miniPlayerViewModel.musicTime.value
+        val musicPlay = miniPlayerViewModel.musicPlay.value
+
+        intent.putExtra("musicTitle", musicTitle)
+        intent.putExtra("musicSinger", musicSinger)
+        intent.putExtra("musicTime", musicTime)
+        intent.putExtra("musicPlay", musicPlay)
+
+        Log.d("보내는 값", "Sending data: title=$musicTitle, singer=$musicSinger, time=$musicTime, play=$musicPlay")
+
+        setResult(100, intent)
+        finish()
     }
 
     private fun setObserve(){

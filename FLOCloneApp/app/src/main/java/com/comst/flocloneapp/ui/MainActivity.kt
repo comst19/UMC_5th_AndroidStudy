@@ -8,7 +8,9 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
@@ -24,10 +26,7 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
-    private val miniPlayerViewModel : MiniPlayerViewModel by viewModels{
-        ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-    }
-
+    lateinit var miniPlayerViewModel : MiniPlayerViewModel
 
     private val registerLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()){ result ->
@@ -35,15 +34,13 @@ class MainActivity : AppCompatActivity() {
 
             val musicTitle = result.data?.getStringExtra("musicTitle")
             val musicSinger = result.data?.getStringExtra("musicSinger")
-            val musicTime = intent.getIntExtra("musicTime", 0)
-            val musicPlay = intent.getBooleanExtra("musicPlay", false)
-            Toast.makeText(this@MainActivity, "${miniPlayerViewModel.musicTime.value}\n  ${miniPlayerViewModel.musicPlay.value} \n받은 거 : ${musicPlay}", Toast.LENGTH_SHORT).show()
-            Toast.makeText(this@MainActivity, "받은 거 : ${musicPlay}", Toast.LENGTH_SHORT).show()
+            val musicTime = result.data?.getIntExtra("musicTime", 0)
+            val musicPlay = result.data?.getBooleanExtra("musicPlay", false)
 
             val albumIncludeMusic = AlbumIncludeMusic(0, musicTitle!!, false, musicSinger!!)
             miniPlayerViewModel.updateMiniPlayerUI(albumIncludeMusic)
 
-            miniPlayerViewModel.setMusicTime(musicTime)
+            miniPlayerViewModel.setMusicTime(musicTime!!)
             miniPlayerViewModel.musicPlay.value = musicPlay
 
         }
@@ -52,7 +49,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        miniPlayerViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory(application))
+            .get(MiniPlayerViewModel::class.java)
+
+
         setContentView(binding.root)
 
         val navController = findNavController(R.id.nav_host)

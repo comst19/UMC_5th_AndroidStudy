@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.comst.flocloneapp.model.AlbumIncludeMusic
 import kotlinx.coroutines.Job
 
-class MiniPlayerViewModel : ViewModel() {
+class MiniPlayerViewModel(application: Application) : AndroidViewModel(application) {
 
     var job : Job? = null
 
