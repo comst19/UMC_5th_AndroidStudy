@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
-    lateinit var miniPlayerViewModel : MiniPlayerViewModel
+    private val miniPlayerViewModel : MiniPlayerViewModel by viewModels()
 
     private val registerLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()){ result ->
@@ -50,9 +50,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        miniPlayerViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory(application))
-            .get(MiniPlayerViewModel::class.java)
-
 
         setContentView(binding.root)
 

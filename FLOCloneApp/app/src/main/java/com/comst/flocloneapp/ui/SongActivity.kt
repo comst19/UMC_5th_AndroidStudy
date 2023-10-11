@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit
 class SongActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivitySongBinding
-    private lateinit var miniPlayerViewModel : MiniPlayerViewModel
+    private val miniPlayerViewModel : MiniPlayerViewModel by viewModels()
 
     var repeat = false
     var shuffle = false
@@ -36,8 +36,6 @@ class SongActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_song)
-        miniPlayerViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory(application))
-            .get(MiniPlayerViewModel::class.java)
 
         val musicTitle = intent.getStringExtra("musicTitle")
         val musicSinger = intent.getStringExtra("musicSinger")
@@ -134,17 +132,10 @@ class SongActivity : AppCompatActivity() {
     private fun goMainActivity(){
         val intent = Intent(this@SongActivity, MainActivity::class.java)
 
-        val musicTitle = miniPlayerViewModel.musicPlayTitle.value
-        val musicSinger = miniPlayerViewModel.musicPlayArtist.value
-        val musicTime = miniPlayerViewModel.musicTime.value
-        val musicPlay = miniPlayerViewModel.musicPlay.value
-
-        intent.putExtra("musicTitle", musicTitle)
-        intent.putExtra("musicSinger", musicSinger)
-        intent.putExtra("musicTime", musicTime)
-        intent.putExtra("musicPlay", musicPlay)
-
-        Log.d("보내는 값", "Sending data: title=$musicTitle, singer=$musicSinger, time=$musicTime, play=$musicPlay")
+        intent.putExtra("musicTitle", miniPlayerViewModel.musicPlayTitle.value)
+        intent.putExtra("musicSinger", miniPlayerViewModel.musicPlayArtist.value)
+        intent.putExtra("musicTime", miniPlayerViewModel.musicTime.value)
+        intent.putExtra("musicPlay", miniPlayerViewModel.musicPlay.value)
 
         setResult(100, intent)
         finish()
