@@ -3,6 +3,7 @@ package com.comst.flocloneapp.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -17,6 +18,8 @@ import androidx.navigation.ui.NavigationUI
 import com.comst.flocloneapp.R
 import com.comst.flocloneapp.databinding.ActivityMainBinding
 import com.comst.flocloneapp.model.AlbumIncludeMusic
+import com.comst.flocloneapp.service.MusicPlayService
+import com.comst.flocloneapp.util.MusicPlayServiceUtil
 import com.comst.flocloneapp.viewmodel.MiniPlayerViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -121,6 +124,7 @@ class MainActivity : AppCompatActivity() {
             if (it == 60){
                 miniPlayerViewModel.job?.cancel()
                 miniPlayerViewModel.musicPlay.value = false
+                MusicPlayServiceUtil.stopService(this@MainActivity)
             }
             //miniPlayerViewModel.setMusicTime(it)
         }
@@ -138,12 +142,18 @@ class MainActivity : AppCompatActivity() {
                         miniPlayerViewModel.setMusicTime(miniPlayerViewModel.musicTime.value?.plus(1) ?: 0)
                     }
                 }
+
+                if (miniPlayerViewModel.musicPlay.value!!){
+
+                }
+                MusicPlayServiceUtil.startService(this@MainActivity)
             }else{
                 binding.playMusicStart.setImageDrawable(
                     AppCompatResources.getDrawable(this@MainActivity,
                     R.drawable.btn_miniplayer_play
                 ))
                 miniPlayerViewModel.job?.cancel()
+                MusicPlayServiceUtil.pauseService(this@MainActivity)
             }
         }
 

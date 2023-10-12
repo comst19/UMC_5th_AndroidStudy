@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.comst.flocloneapp.R
 import com.comst.flocloneapp.databinding.ActivitySongBinding
 import com.comst.flocloneapp.model.AlbumIncludeMusic
+import com.comst.flocloneapp.util.MusicPlayServiceUtil
 import com.comst.flocloneapp.viewmodel.MiniPlayerViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -147,6 +148,7 @@ class SongActivity : AppCompatActivity() {
             if (it == 60){
                 miniPlayerViewModel.job?.cancel()
                 miniPlayerViewModel.musicPlay.value = false
+                MusicPlayServiceUtil.stopService(this@SongActivity)
             }
             updateTimerText(miniPlayerViewModel.musicTime.value!!)
         }
@@ -163,11 +165,14 @@ class SongActivity : AppCompatActivity() {
                         miniPlayerViewModel.setMusicTime(miniPlayerViewModel.musicTime.value?.plus(1) ?: 0)
                     }
                 }
+                MusicPlayServiceUtil.startService(this@SongActivity)
+
             }else{
                 binding.songMiniplayerIv.setImageDrawable(AppCompatResources.getDrawable(this@SongActivity,
                     R.drawable.btn_miniplayer_play
                 ))
                 miniPlayerViewModel.job?.cancel()
+                MusicPlayServiceUtil.pauseService(this@SongActivity)
             }
         }
     }
