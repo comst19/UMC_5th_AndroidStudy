@@ -29,6 +29,14 @@ class MiniPlayerViewModel : ViewModel() {
         _musicPlayArtist.value = albumIncludeMusic.artist
     }
 
+    fun resetViewModel() {
+        _musicPlayTitle.value = "재생목록이 비었습니다."
+        _musicPlayArtist.value = ""
+        musicPlay.value = false
+        _musicTime.value = 0
+        job?.cancel()
+    }
+
     fun setMusicTime(progress : Int){
         _musicTime.value = progress
     }

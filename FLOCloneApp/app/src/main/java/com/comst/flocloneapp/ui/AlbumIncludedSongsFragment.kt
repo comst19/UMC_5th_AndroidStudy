@@ -10,7 +10,6 @@ import com.comst.flocloneapp.adapter.AlbumIncludedMusicAdapter
 import com.comst.flocloneapp.databinding.FragmentAlbumIncludedSongsBinding
 import com.comst.flocloneapp.listener.PlayMusicListener
 import com.comst.flocloneapp.model.AlbumIncludeMusic
-import com.comst.flocloneapp.viewmodel.MainViewModel
 import com.comst.flocloneapp.viewmodel.MiniPlayerViewModel
 
 
@@ -68,6 +67,8 @@ class AlbumIncludedSongsFragment : Fragment(), PlayMusicListener {
         _binding = null
     }
     override fun albumIncludedSongsPlay(albumIncludeMusic: AlbumIncludeMusic) {
+        mainViewModel.resetViewModel()
         mainViewModel.updateMiniPlayerUI(albumIncludeMusic)
+        mainViewModel.musicPlay.value = true
     }
 }
