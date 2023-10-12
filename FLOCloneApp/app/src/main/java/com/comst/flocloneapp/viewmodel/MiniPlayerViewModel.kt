@@ -5,8 +5,11 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.comst.flocloneapp.model.AlbumIncludeMusic
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MiniPlayerViewModel : ViewModel() {
 
@@ -39,5 +42,23 @@ class MiniPlayerViewModel : ViewModel() {
 
     fun setMusicTime(progress : Int){
         _musicTime.value = progress
+    }
+
+    fun musicPlayOrPause() {
+        if (musicPlay.value == true) {
+            if (job?.isActive == true) return
+            job = viewModelScope.launch {
+                while (musicPlay.value == true && (_musicTime.value ?: 0) < MAX_MUSIC_TIME) {
+                    delay(1000)
+                    _musicTime.value = (_musicTime.value ?: 0) + 1
+                }
+            }
+        } else {
+            job?.cancel()
+        }
+    }
+
+    companion object {
+        private const val MAX_MUSIC_TIME = 60
     }
 }

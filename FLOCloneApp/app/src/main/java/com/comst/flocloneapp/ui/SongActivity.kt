@@ -69,6 +69,7 @@ class SongActivity : AppCompatActivity() {
 
             songMiniplayerIv.setOnClickListener {
                 miniPlayerViewModel.musicPlay.value = !miniPlayerViewModel.musicPlay.value!!
+                miniPlayerViewModel.musicPlayOrPause()
             }
 
             songProgressSb.setOnSeekBarChangeListener(object  : SeekBar.OnSeekBarChangeListener{
@@ -151,27 +152,22 @@ class SongActivity : AppCompatActivity() {
                 MusicPlayServiceUtil.stopService(this@SongActivity)
             }
             updateTimerText(miniPlayerViewModel.musicTime.value!!)
+            binding.songProgressSb.progress = it
         }
 
 
         miniPlayerViewModel.musicPlay.observe(this){
+            miniPlayerViewModel.musicPlayOrPause()
             if (it){
                 binding.songMiniplayerIv.setImageDrawable(AppCompatResources.getDrawable(this@SongActivity,
                     R.drawable.btn_miniplay_pause
                 ))
-                miniPlayerViewModel.job = CoroutineScope(Dispatchers.Main).launch {
-                    while (it && binding.songProgressSb.progress < binding.songProgressSb.max){
-                        delay(1000)
-                        miniPlayerViewModel.setMusicTime(miniPlayerViewModel.musicTime.value?.plus(1) ?: 0)
-                    }
-                }
                 MusicPlayServiceUtil.startService(this@SongActivity)
 
             }else{
                 binding.songMiniplayerIv.setImageDrawable(AppCompatResources.getDrawable(this@SongActivity,
                     R.drawable.btn_miniplayer_play
                 ))
-                miniPlayerViewModel.job?.cancel()
                 MusicPlayServiceUtil.pauseService(this@SongActivity)
             }
         }

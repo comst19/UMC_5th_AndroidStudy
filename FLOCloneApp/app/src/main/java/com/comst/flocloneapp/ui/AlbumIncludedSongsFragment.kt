@@ -10,6 +10,8 @@ import com.comst.flocloneapp.adapter.AlbumIncludedMusicAdapter
 import com.comst.flocloneapp.databinding.FragmentAlbumIncludedSongsBinding
 import com.comst.flocloneapp.listener.PlayMusicListener
 import com.comst.flocloneapp.model.AlbumIncludeMusic
+import com.comst.flocloneapp.service.MusicPlayService
+import com.comst.flocloneapp.util.MusicPlayServiceUtil
 import com.comst.flocloneapp.viewmodel.MiniPlayerViewModel
 
 
@@ -20,7 +22,7 @@ class AlbumIncludedSongsFragment : Fragment(), PlayMusicListener {
 
     private val albumIncludedMusicAdapter = AlbumIncludedMusicAdapter(this)
     private val albumIncludeMusicList = mutableListOf<AlbumIncludeMusic>()
-    private val mainViewModel : MiniPlayerViewModel by activityViewModels()
+    private val miniPlayerViewModel : MiniPlayerViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,8 +69,10 @@ class AlbumIncludedSongsFragment : Fragment(), PlayMusicListener {
         _binding = null
     }
     override fun albumIncludedSongsPlay(albumIncludeMusic: AlbumIncludeMusic) {
-        mainViewModel.resetViewModel()
-        mainViewModel.updateMiniPlayerUI(albumIncludeMusic)
-        mainViewModel.musicPlay.value = true
+        MusicPlayServiceUtil.stopService(requireContext())
+        miniPlayerViewModel.resetViewModel()
+        miniPlayerViewModel.updateMiniPlayerUI(albumIncludeMusic)
+        miniPlayerViewModel.musicPlay.value = true
+        miniPlayerViewModel.musicPlayOrPause()
     }
 }
