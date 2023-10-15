@@ -230,6 +230,7 @@
                 android:id="@+id/song_miniplayer_iv"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
+                app:isPlaying="@{vm.musicPlay}"
                 android:scaleType="centerCrop"
                 android:src="@drawable/btn_miniplayer_play" />
 

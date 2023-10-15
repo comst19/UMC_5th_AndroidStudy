@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import com.comst.flocloneapp.adapter.AlbumIncludedMusicAdapter
+import com.comst.flocloneapp.ui.adapter.AlbumIncludedMusicAdapter
 import com.comst.flocloneapp.databinding.FragmentAlbumIncludedSongsBinding
 import com.comst.flocloneapp.listener.PlayMusicListener
 import com.comst.flocloneapp.model.AlbumIncludeMusic

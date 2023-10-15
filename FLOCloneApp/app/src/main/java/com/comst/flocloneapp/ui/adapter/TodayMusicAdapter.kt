@@ -1,4 +1,4 @@
-package com.comst.flocloneapp.adapter
+package com.comst.flocloneapp.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,7 +10,9 @@ import com.comst.flocloneapp.listener.ItemTodayMusicListener
 import com.comst.flocloneapp.model.EverydayMusic
 import com.comst.flocloneapp.model.TodayMusic
 
-class TodayMusicAdapter(private val listener : ItemTodayMusicListener) : ListAdapter<TodayMusic, TodayMusicAdapter.TodayMusicListViewHolder>(DiffCallback) {
+class TodayMusicAdapter(private val listener : ItemTodayMusicListener) : ListAdapter<TodayMusic, TodayMusicAdapter.TodayMusicListViewHolder>(
+    DiffCallback
+) {
 
     companion object{
         private val DiffCallback = object  : DiffUtil.ItemCallback<TodayMusic>(){

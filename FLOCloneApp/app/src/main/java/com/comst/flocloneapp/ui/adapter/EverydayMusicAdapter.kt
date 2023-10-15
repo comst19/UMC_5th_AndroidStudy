@@ -1,4 +1,4 @@
-package com.comst.flocloneapp.adapter
+package com.comst.flocloneapp.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.comst.flocloneapp.databinding.ItemEverydayMusicBinding
 import com.comst.flocloneapp.model.EverydayMusic
 
-class EverydayMusicAdapter : ListAdapter<EverydayMusic, EverydayMusicAdapter.EveryDayMusicListViewHolder>(DiffCallback) {
+class EverydayMusicAdapter : ListAdapter<EverydayMusic, EverydayMusicAdapter.EveryDayMusicListViewHolder>(
+    DiffCallback
+) {
 
     companion object{
         private val DiffCallback = object  : DiffUtil.ItemCallback<EverydayMusic>(){

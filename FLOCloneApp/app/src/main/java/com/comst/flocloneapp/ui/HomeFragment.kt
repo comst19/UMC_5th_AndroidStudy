@@ -11,10 +11,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.comst.flocloneapp.adapter.EverydayMusicAdapter
-import com.comst.flocloneapp.adapter.HomeBannerViewPagerAdapter
-import com.comst.flocloneapp.adapter.TodayMusicAdapter
-import com.comst.flocloneapp.adapter.VideoMusicAdapter
+import com.comst.flocloneapp.ui.adapter.EverydayMusicAdapter
+import com.comst.flocloneapp.ui.adapter.HomeBannerViewPagerAdapter
+import com.comst.flocloneapp.ui.adapter.TodayMusicAdapter
+import com.comst.flocloneapp.ui.adapter.VideoMusicAdapter
 import com.comst.flocloneapp.databinding.FragmentHomeBinding
 import com.comst.flocloneapp.listener.ItemTodayMusicListener
 import com.comst.flocloneapp.model.EverydayMusic

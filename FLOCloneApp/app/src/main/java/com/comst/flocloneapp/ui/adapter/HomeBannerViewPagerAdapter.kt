@@ -1,4 +1,4 @@
-package com.comst.flocloneapp.adapter
+package com.comst.flocloneapp.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.comst.flocloneapp.databinding.ItemBannerBinding
 import com.comst.flocloneapp.model.HomeBanner
 
-class HomeBannerViewPagerAdapter : ListAdapter<HomeBanner, HomeBannerViewPagerAdapter.HomeBannerViewHolder>(DiffCallback) {
+class HomeBannerViewPagerAdapter : ListAdapter<HomeBanner, HomeBannerViewPagerAdapter.HomeBannerViewHolder>(
+    DiffCallback
+) {
 
     companion object{
         private val DiffCallback = object  : DiffUtil.ItemCallback<HomeBanner>(){

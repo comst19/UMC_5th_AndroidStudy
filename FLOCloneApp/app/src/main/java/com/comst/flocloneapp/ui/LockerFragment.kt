@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.comst.flocloneapp.R
-import com.comst.flocloneapp.adapter.LockerViewPagerAdapter
+import com.comst.flocloneapp.ui.adapter.LockerViewPagerAdapter
 import com.comst.flocloneapp.databinding.FragmentLockerBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator

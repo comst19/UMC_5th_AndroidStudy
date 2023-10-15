@@ -1,4 +1,4 @@
-package com.comst.flocloneapp.adapter
+package com.comst.flocloneapp.ui.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity

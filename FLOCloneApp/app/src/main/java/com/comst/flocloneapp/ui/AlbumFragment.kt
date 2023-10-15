@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.comst.flocloneapp.R
-import com.comst.flocloneapp.adapter.AlbumFragmentViewPagerAdapter
+import com.comst.flocloneapp.ui.adapter.AlbumFragmentViewPagerAdapter
 import com.comst.flocloneapp.databinding.FragmentAlbumBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator

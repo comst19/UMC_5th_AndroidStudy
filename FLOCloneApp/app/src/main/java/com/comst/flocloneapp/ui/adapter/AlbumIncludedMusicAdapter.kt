@@ -1,4 +1,4 @@
-package com.comst.flocloneapp.adapter
+package com.comst.flocloneapp.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +10,9 @@ import com.comst.flocloneapp.databinding.ItemAlbumIncludedSongBinding
 import com.comst.flocloneapp.listener.PlayMusicListener
 import com.comst.flocloneapp.model.AlbumIncludeMusic
 
-class AlbumIncludedMusicAdapter(private val listener : PlayMusicListener) : ListAdapter<AlbumIncludeMusic, AlbumIncludedMusicAdapter.AlbumIncludedMusicListViewHolder>(DiffCallback) {
+class AlbumIncludedMusicAdapter(private val listener : PlayMusicListener) : ListAdapter<AlbumIncludeMusic, AlbumIncludedMusicAdapter.AlbumIncludedMusicListViewHolder>(
+    DiffCallback
+) {
 
     companion object{
         private val DiffCallback = object  : DiffUtil.ItemCallback<AlbumIncludeMusic>(){

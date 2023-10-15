@@ -1,4 +1,4 @@
-package com.comst.flocloneapp.adapter
+package com.comst.flocloneapp.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +9,9 @@ import com.comst.flocloneapp.databinding.ItemVideoMusicBinding
 import com.comst.flocloneapp.model.TodayMusic
 import com.comst.flocloneapp.model.VideoMusic
 
-class VideoMusicAdapter : ListAdapter<VideoMusic, VideoMusicAdapter.VideoMusicListViewHolder>(DiffCallback) {
+class VideoMusicAdapter : ListAdapter<VideoMusic, VideoMusicAdapter.VideoMusicListViewHolder>(
+    DiffCallback
+) {
 
     companion object{
         private val DiffCallback = object  : DiffUtil.ItemCallback<VideoMusic>(){

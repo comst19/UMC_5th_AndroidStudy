@@ -159,15 +159,9 @@ class SongActivity : AppCompatActivity() {
         miniPlayerViewModel.musicPlay.observe(this){
             miniPlayerViewModel.musicPlayOrPause()
             if (it){
-                binding.songMiniplayerIv.setImageDrawable(AppCompatResources.getDrawable(this@SongActivity,
-                    R.drawable.btn_miniplay_pause
-                ))
                 MusicPlayServiceUtil.startService(this@SongActivity)
 
             }else{
-                binding.songMiniplayerIv.setImageDrawable(AppCompatResources.getDrawable(this@SongActivity,
-                    R.drawable.btn_miniplayer_play
-                ))
                 MusicPlayServiceUtil.pauseService(this@SongActivity)
             }
         }

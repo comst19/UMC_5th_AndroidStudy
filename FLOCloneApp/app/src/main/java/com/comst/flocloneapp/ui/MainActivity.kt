@@ -124,17 +124,8 @@ class MainActivity : AppCompatActivity() {
 
         miniPlayerViewModel.musicPlay.observe(this) {
             if (it) {
-                binding.playMusicStart.setImageDrawable(AppCompatResources.getDrawable(
-                    this@MainActivity,
-                    R.drawable.btn_miniplay_pause
-                ))
                 MusicPlayServiceUtil.startService(this@MainActivity)
-
             } else {
-                binding.playMusicStart.setImageDrawable(AppCompatResources.getDrawable(
-                    this@MainActivity,
-                    R.drawable.btn_miniplayer_play
-                ))
                 MusicPlayServiceUtil.pauseService(this@MainActivity)
             }
         }
