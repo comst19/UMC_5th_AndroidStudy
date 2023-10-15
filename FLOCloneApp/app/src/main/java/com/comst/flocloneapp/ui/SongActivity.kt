@@ -146,13 +146,15 @@ class SongActivity : AppCompatActivity() {
     private fun setObserve(){
 
         miniPlayerViewModel.musicTime.observe(this){
-            if (it == 60){
-                miniPlayerViewModel.job?.cancel()
-                miniPlayerViewModel.musicPlay.value = false
-                MusicPlayServiceUtil.stopService(this@SongActivity)
-            }
+            miniPlayerViewModel.checkMusicTimeAndStop()
             updateTimerText(miniPlayerViewModel.musicTime.value!!)
             binding.songProgressSb.progress = it
+        }
+
+        miniPlayerViewModel.isMusicTimeOver.observe(this) { isOver ->
+            if(isOver) {
+                MusicPlayServiceUtil.stopService(this)
+            }
         }
 
 
@@ -160,7 +162,6 @@ class SongActivity : AppCompatActivity() {
             miniPlayerViewModel.musicPlayOrPause()
             if (it){
                 MusicPlayServiceUtil.startService(this@SongActivity)
-
             }else{
                 MusicPlayServiceUtil.pauseService(this@SongActivity)
             }

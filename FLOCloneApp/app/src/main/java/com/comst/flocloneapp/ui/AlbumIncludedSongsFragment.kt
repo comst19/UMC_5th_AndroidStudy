@@ -73,6 +73,7 @@ class AlbumIncludedSongsFragment : Fragment(), PlayMusicListener {
         miniPlayerViewModel.resetViewModel()
         miniPlayerViewModel.updateMiniPlayerUI(albumIncludeMusic)
         miniPlayerViewModel.musicPlay.value = true
+        miniPlayerViewModel.isMusicTimeOver.value = false
         miniPlayerViewModel.musicPlayOrPause()
     }
 }

@@ -1,12 +1,14 @@
 package com.comst.flocloneapp.viewmodel
 
 import android.app.Application
+import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.comst.flocloneapp.model.AlbumIncludeMusic
+import com.comst.flocloneapp.util.MusicPlayServiceUtil
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -23,6 +25,7 @@ class MiniPlayerViewModel : ViewModel() {
 
     val musicPlayArtist : LiveData<String> get() = _musicPlayArtist
     val musicPlay = MutableLiveData<Boolean>(false)
+    val isMusicTimeOver = MutableLiveData<Boolean>(false)
 
     private val _musicTime = MutableLiveData<Int>(0)
     val musicTime : LiveData<Int> get() = _musicTime
@@ -30,6 +33,14 @@ class MiniPlayerViewModel : ViewModel() {
     fun updateMiniPlayerUI(albumIncludeMusic : AlbumIncludeMusic){
         _musicPlayTitle.value = albumIncludeMusic.musicName
         _musicPlayArtist.value = albumIncludeMusic.artist
+    }
+
+    fun checkMusicTimeAndStop() {
+        if (musicTime.value == 60) {
+            job?.cancel()
+            musicPlay.value = false
+            isMusicTimeOver.value = true // 이벤트 발생
+        }
     }
 
     fun resetViewModel() {
