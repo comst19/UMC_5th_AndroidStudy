@@ -120,7 +120,7 @@ class MainActivity : AppCompatActivity() {
 
         miniPlayerViewModel.musicTime.observe(this){
             miniPlayerViewModel.checkMusicTimeAndStop()
-            binding.songProgressSb.progress = it
+            //binding.songProgressSb.progress = it
         }
 
         miniPlayerViewModel.musicPlay.observe(this) {

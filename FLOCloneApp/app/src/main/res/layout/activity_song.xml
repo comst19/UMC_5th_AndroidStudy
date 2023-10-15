@@ -179,7 +179,7 @@
             android:background="@null"
             android:paddingStart="0dp"
             android:paddingEnd="0dp"
-            android:progress="@{vm.musicTime}"
+            app:miniPlayerSeekBar="@{vm.musicTime}"
             android:progressBackgroundTint="@color/song_player_bg"
             android:progressTint="@color/song_player"
             android:thumb="@color/transparent"
