@@ -148,7 +148,6 @@ class SongActivity : AppCompatActivity() {
         miniPlayerViewModel.musicTime.observe(this){
             miniPlayerViewModel.checkMusicTimeAndStop()
             updateTimerText(miniPlayerViewModel.musicTime.value!!)
-            //binding.songProgressSb.progress = it
         }
 
         miniPlayerViewModel.isMusicTimeOver.observe(this) { isOver ->
