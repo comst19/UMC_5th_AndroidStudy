@@ -6,6 +6,7 @@ import android.media.MediaPlayer
 import android.os.IBinder
 import com.comst.flocloneapp.R
 
+// 원래는 포그라운드 서비스로 해야함
 class MusicPlayService : Service() {
 
     lateinit var mp : MediaPlayer

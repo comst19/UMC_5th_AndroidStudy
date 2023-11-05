@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +23,8 @@ import com.comst.flocloneapp.model.HomeBanner
 import com.comst.flocloneapp.model.TodayMusic
 import com.comst.flocloneapp.model.VideoMusic
 import com.comst.flocloneapp.R
+import com.comst.flocloneapp.util.MusicPlayServiceUtil
+import com.comst.flocloneapp.viewmodel.MiniPlayerViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
@@ -42,6 +45,7 @@ class HomeFragment : Fragment(), ItemTodayMusicListener {
     private val videoMusicList = mutableListOf<VideoMusic>()
     private val homeBannerList = mutableListOf<HomeBanner>()
 
+    private val miniPlayerViewModel : MiniPlayerViewModel by activityViewModels()
 
 
     override fun onCreateView(
@@ -159,6 +163,16 @@ class HomeFragment : Fragment(), ItemTodayMusicListener {
         findNavController().navigate(R.id.albumFragment,bundle)
 
     }
+
+    override fun playMusic(todayMusic: TodayMusic) {
+        MusicPlayServiceUtil.stopService(requireContext())
+        miniPlayerViewModel.resetViewModel()
+        miniPlayerViewModel.updateMiniPlayerUI(todayMusic.musicName,todayMusic.artist)
+        miniPlayerViewModel.musicPlay.value = true
+        miniPlayerViewModel.isMusicTimeOver.value = false
+        miniPlayerViewModel.musicPlayOrPause()
+    }
+
 }
 
 class TodayMusicAdapterDecoration : RecyclerView.ItemDecoration(){

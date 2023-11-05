@@ -35,6 +35,9 @@ class TodayMusicAdapter(private val listener : ItemTodayMusicListener) : ListAda
             binding.root.setOnClickListener {
                 listener.goAlbumFragment(adapterPosition)
             }
+            binding.todayPlayMusic.setOnClickListener {
+                listener.playMusic(todayMusic)
+            }
         }
 
     }
