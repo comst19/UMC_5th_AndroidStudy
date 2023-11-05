@@ -33,6 +33,12 @@ class LockerSavedMusicAdapter(private val listener : SavedMusicListener) : ListA
             binding.itemSongImgIv.setImageResource(savedMusic.musicImg)
             binding.itemSongSingerTv.text = savedMusic.artist
             binding.itemSongTitleTv.text = savedMusic.musicName
+            savedMusic.switchOnOff = savedMusic.switchOnOff
+
+
+            binding.itemSongSwitch.setOnClickListener {
+                savedMusic.switchOnOff = !savedMusic.switchOnOff
+            }
 
             binding.itemSongPlayIv.setOnClickListener {
                 listener.savedSongsPlay(savedMusic)
@@ -62,5 +68,9 @@ class LockerSavedMusicAdapter(private val listener : SavedMusicListener) : ListA
 
     override fun onBindViewHolder(holder: LockerSavedListViewHolder, position: Int) {
         holder.bind(getItem(position))
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
     }
 }
