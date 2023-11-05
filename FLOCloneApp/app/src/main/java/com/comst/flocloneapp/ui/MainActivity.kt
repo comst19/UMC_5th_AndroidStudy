@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
             val musicPlay = result.data?.getBooleanExtra("musicPlay", false)
 
             val albumIncludeMusic = AlbumIncludeMusic(0, musicTitle!!, false, musicSinger!!)
-            miniPlayerViewModel.updateMiniPlayerUI(albumIncludeMusic)
+            miniPlayerViewModel.updateMiniPlayerUI(albumIncludeMusic.musicName, albumIncludeMusic.artist)
 
             miniPlayerViewModel.setMusicTime(musicTime!!)
             miniPlayerViewModel.musicPlay.value = musicPlay

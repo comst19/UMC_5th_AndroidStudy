@@ -45,7 +45,7 @@ class SongActivity : AppCompatActivity() {
 
         val albumIncludeMusic = AlbumIncludeMusic(0, musicTitle!!, false, musicSinger!!)
 
-        miniPlayerViewModel.updateMiniPlayerUI(albumIncludeMusic)
+        miniPlayerViewModel.updateMiniPlayerUI(albumIncludeMusic.musicName, albumIncludeMusic.artist)
 
         miniPlayerViewModel.setMusicTime(musicTime)
         updateTimerText(musicTime)

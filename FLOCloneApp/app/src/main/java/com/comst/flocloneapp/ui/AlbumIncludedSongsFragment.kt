@@ -71,7 +71,7 @@ class AlbumIncludedSongsFragment : Fragment(), PlayMusicListener {
     override fun albumIncludedSongsPlay(albumIncludeMusic: AlbumIncludeMusic) {
         MusicPlayServiceUtil.stopService(requireContext())
         miniPlayerViewModel.resetViewModel()
-        miniPlayerViewModel.updateMiniPlayerUI(albumIncludeMusic)
+        miniPlayerViewModel.updateMiniPlayerUI(albumIncludeMusic.musicName, albumIncludeMusic.artist)
         miniPlayerViewModel.musicPlay.value = true
         miniPlayerViewModel.isMusicTimeOver.value = false
         miniPlayerViewModel.musicPlayOrPause()
