@@ -17,6 +17,7 @@ import com.comst.flocloneapp.databinding.ActivitySongBinding
 import com.comst.flocloneapp.model.AlbumIncludeMusic
 import com.comst.flocloneapp.model.SongEntity
 import com.comst.flocloneapp.util.MusicPlayServiceUtil
+import com.comst.flocloneapp.util.ToastLikeOnOff
 import com.comst.flocloneapp.viewmodel.MiniPlayerViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -73,8 +74,11 @@ class SongActivity : AppCompatActivity() {
                 songs[nowPos].isLike = !songs[nowPos].isLike
                 if (songs[nowPos].isLike){
                     songLikeIv.setImageResource(R.drawable.ic_my_like_on)
+                    ToastLikeOnOff.createToast(this@SongActivity, "좋아요 한 곡에 담겼습니다.")?.show()
                 }else{
                     songLikeIv.setImageResource(R.drawable.ic_my_like_off)
+                    ToastLikeOnOff.createToast(this@SongActivity, "좋아요 한 곡이 취소되었습니다.")?.show()
+
                 }
                 CoroutineScope(Dispatchers.IO).launch{
                     songDB.SongDao().update(songs[nowPos])

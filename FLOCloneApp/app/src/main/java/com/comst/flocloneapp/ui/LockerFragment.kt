@@ -1,10 +1,12 @@
 package com.comst.flocloneapp.ui
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import com.comst.flocloneapp.R
 import com.comst.flocloneapp.ui.adapter.LockerViewPagerAdapter
 import com.comst.flocloneapp.databinding.FragmentLockerBinding
@@ -16,6 +18,8 @@ class LockerFragment : Fragment() {
 
     private var _binding : FragmentLockerBinding? = null
     private val binding get() = _binding!!
+
+    private var allSelected = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,6 +35,14 @@ class LockerFragment : Fragment() {
 
     private fun initView(){
         with(binding){
+
+            binding.lockerSelectAllTv.setOnClickListener {
+                allSelected()
+            }
+
+            binding.lockerSelectAllImgIv.setOnClickListener {
+                allSelected()
+            }
 
             val tabName = arrayOf<String>("저장한 곡", "음악파일", "♥좋아요")
             lockerContentVp.adapter = LockerViewPagerAdapter(requireActivity())
@@ -53,6 +65,20 @@ class LockerFragment : Fragment() {
                 }
             })
         }
+    }
+
+    private fun allSelected(){
+
+        allSelected = !allSelected
+
+        if (allSelected){
+            binding.lockerSelectAllImgIv.setImageResource(R.drawable.btn_playlist_select_on)
+            binding.lockerSelectAllTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.flo))
+        }else{
+            binding.lockerSelectAllImgIv.setImageResource(R.drawable.btn_playlist_select_off)
+            binding.lockerSelectAllTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryGrey))
+        }
+
     }
 
     override fun onDestroyView() {
