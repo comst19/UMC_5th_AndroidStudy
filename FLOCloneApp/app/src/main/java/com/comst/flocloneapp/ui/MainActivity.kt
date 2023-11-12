@@ -57,6 +57,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        val spf = getSharedPreferences("song", MODE_PRIVATE)
+        nowPos = spf.getInt("songId",0)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -184,14 +190,37 @@ class MainActivity : AppCompatActivity() {
             })
 
             songNextIv.setOnClickListener {
-                miniPlayerViewModel.setMusicTime((songProgressSb.progress + 5).coerceAtMost(songProgressSb.max))
-
+                //miniPlayerViewModel.setMusicTime((songProgressSb.progress + 5).coerceAtMost(songProgressSb.max))
+                val songsSize = songs.size
+                nowPos = (nowPos + 1) % songsSize
+                changeSong()
+                changeSongId()
             }
             songPreviousIv.setOnClickListener {
-                miniPlayerViewModel.setMusicTime((songProgressSb.progress - 5).coerceAtLeast(0))
+                //miniPlayerViewModel.setMusicTime((songProgressSb.progress - 5).coerceAtLeast(0))
+                val songsSize = songs.size
+                nowPos = if(nowPos - 1 < 0) songsSize - 1 else nowPos - 1
+                changeSong()
+                changeSongId()
             }
 
         }
+    }
+
+    private fun changeSongId(){
+        val spf = getSharedPreferences("song", MODE_PRIVATE)
+        val editor = spf.edit()
+        editor.putInt("songId", nowPos)
+        editor.apply()
+    }
+
+    private fun changeSong(){
+        MusicPlayServiceUtil.stopService(this@MainActivity)
+        miniPlayerViewModel.resetViewModel()
+        miniPlayerViewModel.updateMiniPlayerUI(songs[nowPos].title, songs[nowPos].singer)
+        miniPlayerViewModel.musicPlay.value = true
+        miniPlayerViewModel.isMusicTimeOver.value = false
+        miniPlayerViewModel.musicPlayOrPause()
     }
 
     private fun initPlayList(){

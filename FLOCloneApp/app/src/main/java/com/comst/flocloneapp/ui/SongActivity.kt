@@ -136,18 +136,25 @@ class SongActivity : AppCompatActivity() {
                 //miniPlayerViewModel.setMusicTime((songProgressSb.progress + 5).coerceAtMost(songProgressSb.max))
                 val songsSize = songs.size
                 nowPos = (nowPos + 1) % songsSize
-
                 changeSong()
+                changeSongId()
             }
             songPreviousIv.setOnClickListener {
                 //miniPlayerViewModel.setMusicTime((songProgressSb.progress - 5).coerceAtLeast(0))
                 val songsSize = songs.size
                 nowPos = if(nowPos - 1 < 0) songsSize - 1 else nowPos - 1
                 changeSong()
+                changeSongId()
             }
         }
     }
 
+    private fun changeSongId(){
+        val spf = getSharedPreferences("song", MODE_PRIVATE)
+        val editor = spf.edit()
+        editor.putInt("songId", nowPos)
+        editor.apply()
+    }
     private fun changeSong(){
 
         if (songs[nowPos].isLike){
