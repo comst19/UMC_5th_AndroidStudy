@@ -149,16 +149,20 @@ class SongActivity : AppCompatActivity() {
     }
 
     private fun changeSong(){
-        miniPlayerViewModel.setMusicTime(0)
-        updateTimerText(0)
-        miniPlayerViewModel.updateMiniPlayerUI(songs[nowPos].title, songs[nowPos].singer)
-        binding.songAlbumIv.setImageResource(songs[nowPos].coverImg!!)
 
         if (songs[nowPos].isLike){
             binding.songLikeIv.setImageResource(R.drawable.ic_my_like_on)
         }else{
             binding.songLikeIv.setImageResource(R.drawable.ic_my_like_off)
         }
+
+        MusicPlayServiceUtil.stopService(this@SongActivity)
+        miniPlayerViewModel.resetViewModel()
+        miniPlayerViewModel.updateMiniPlayerUI(songs[nowPos].title, songs[nowPos].singer)
+        binding.songAlbumIv.setImageResource(songs[nowPos].coverImg!!)
+        miniPlayerViewModel.musicPlay.value = true
+        miniPlayerViewModel.isMusicTimeOver.value = false
+        miniPlayerViewModel.musicPlayOrPause()
     }
 
     private fun initPlayList(){
