@@ -10,18 +10,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.comst.flocloneapp.R
 import com.comst.flocloneapp.databinding.ItemSavedSongBinding
 import com.comst.flocloneapp.listener.SavedMusicListener
-import com.comst.flocloneapp.model.LockerSavedMusic
+import com.comst.flocloneapp.model.SongEntity
 
-class LockerSavedMusicAdapter(private val listener : SavedMusicListener) : ListAdapter<LockerSavedMusic,LockerSavedMusicAdapter.LockerSavedListViewHolder>(DiffCallback) {
+class LockerSavedMusicAdapter(private val listener : SavedMusicListener) : ListAdapter<SongEntity,LockerSavedMusicAdapter.LockerSavedListViewHolder>(DiffCallback) {
 
     companion object{
-        private val DiffCallback = object  : DiffUtil.ItemCallback<LockerSavedMusic>(){
-            override fun areItemsTheSame(oldItem: LockerSavedMusic, newItem: LockerSavedMusic): Boolean {
+        private val DiffCallback = object  : DiffUtil.ItemCallback<SongEntity>(){
+            override fun areItemsTheSame(oldItem: SongEntity, newItem: SongEntity): Boolean {
                 return oldItem.id == newItem.id
 
             }
 
-            override fun areContentsTheSame(oldItem: LockerSavedMusic, newItem: LockerSavedMusic): Boolean {
+            override fun areContentsTheSame(oldItem: SongEntity, newItem: SongEntity): Boolean {
                 return oldItem == newItem
             }
 
@@ -29,16 +29,11 @@ class LockerSavedMusicAdapter(private val listener : SavedMusicListener) : ListA
     }
 
     inner class LockerSavedListViewHolder(private val binding : ItemSavedSongBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(savedMusic : LockerSavedMusic){
-            binding.itemSongImgIv.setImageResource(savedMusic.musicImg)
-            binding.itemSongSingerTv.text = savedMusic.artist
-            binding.itemSongTitleTv.text = savedMusic.musicName
-            savedMusic.switchOnOff = savedMusic.switchOnOff
+        fun bind(savedMusic : SongEntity){
+            binding.itemSongImgIv.setImageResource(savedMusic.coverImg!!)
+            binding.itemSongSingerTv.text = savedMusic.singer
+            binding.itemSongTitleTv.text = savedMusic.title
 
-
-            binding.itemSongSwitch.setOnClickListener {
-                savedMusic.switchOnOff = !savedMusic.switchOnOff
-            }
 
             binding.itemSongPlayIv.setOnClickListener {
                 listener.savedSongsPlay(savedMusic)

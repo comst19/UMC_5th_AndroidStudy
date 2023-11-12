@@ -25,4 +25,6 @@ interface SongDao {
     @Query("SELECT * FROM SongTable WHERE id = :id")
     fun getSong(id : Int) : SongEntity
 
+    @Query("SELECT * FROM SongTable WHERE isLike = 1")
+    fun getLikedSongs() : List<SongEntity>
 }
