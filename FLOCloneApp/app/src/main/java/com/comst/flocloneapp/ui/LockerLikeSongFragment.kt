@@ -8,10 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.comst.flocloneapp.R
 import com.comst.flocloneapp.data.db.SongDatabase
+import com.comst.flocloneapp.databinding.FragmentLockerLikeSongBinding
 import com.comst.flocloneapp.databinding.FragmentLockerSavedSongBinding
 import com.comst.flocloneapp.listener.SavedMusicListener
-import com.comst.flocloneapp.model.LockerSavedMusic
 import com.comst.flocloneapp.model.SongEntity
+import com.comst.flocloneapp.ui.adapter.LockerLikeSongAdapter
 import com.comst.flocloneapp.ui.adapter.LockerSavedMusicAdapter
 import com.comst.flocloneapp.util.MusicPlayServiceUtil
 import com.comst.flocloneapp.viewmodel.MiniPlayerViewModel
@@ -20,48 +21,46 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class LockerSavedSongFragment : Fragment(), SavedMusicListener {
 
+class LockerLikeSongFragment : Fragment(), SavedMusicListener {
 
-    private var _binding : FragmentLockerSavedSongBinding? = null
+    private var _binding : FragmentLockerLikeSongBinding? = null
     private val binding get() = _binding!!
 
-    private val savedSongAdapter = LockerSavedMusicAdapter(this)
-
-    private var savedMusicList = mutableListOf<SongEntity>()
+    private var likeSongList = arrayListOf<SongEntity>()
     private val miniPlayerViewModel : MiniPlayerViewModel by activityViewModels()
 
+    private val savedSongAdapter = LockerLikeSongAdapter(this)
+
     lateinit var songDB : SongDatabase
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        _binding = FragmentLockerSavedSongBinding.inflate(inflater, container, false)
+        _binding = FragmentLockerLikeSongBinding.inflate(inflater, container, false)
         songDB = SongDatabase.getInstance(requireContext())!!
         initView()
         return binding.root
     }
 
+    private fun getLikeSongList(){
+        CoroutineScope(Dispatchers.IO).launch {
+            likeSongList.addAll(songDB.SongDao().getLikedSongs())
+            withContext(Dispatchers.Main){
+                savedSongAdapter.submitList(likeSongList)
+            }
+        }
+    }
+
     fun initView(){
-
-        getSavedSongList()
-
+        getLikeSongList()
 
         with(binding){
             //todayMusicRecyclerView.addItemDecoration(TodayMusicAdapterDecoration())
-            lockerSavedSongRecyclerView.adapter = savedSongAdapter
+            lockerLikedSongRecyclerView.adapter = savedSongAdapter
         }
 
-    }
-
-    private fun getSavedSongList(){
-        CoroutineScope(Dispatchers.IO).launch {
-            savedMusicList.addAll(songDB.SongDao().getSongs())
-            withContext(Dispatchers.Main){
-                savedSongAdapter.submitList(savedMusicList)
-            }
-        }
     }
 
     override fun onDestroyView() {
@@ -79,8 +78,8 @@ class LockerSavedSongFragment : Fragment(), SavedMusicListener {
     }
 
     override fun deleteSavedSong(position: Int) {
-        val updatedList = savedMusicList.toMutableList()
+        val updatedList = likeSongList.toMutableList()
         updatedList.removeAt(position)
-        savedSongAdapter.submitList(updatedList)
+        savedSongAdapter.submitList(likeSongList)
     }
 }

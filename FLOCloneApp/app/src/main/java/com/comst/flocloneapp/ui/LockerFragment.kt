@@ -32,7 +32,7 @@ class LockerFragment : Fragment() {
     private fun initView(){
         with(binding){
 
-            val tabName = arrayOf<String>("저장한 곡", "음악파일")
+            val tabName = arrayOf<String>("저장한 곡", "음악파일", "♥좋아요")
             lockerContentVp.adapter = LockerViewPagerAdapter(requireActivity())
 
             TabLayoutMediator(lockerContentTb, lockerContentVp){ tab, position ->

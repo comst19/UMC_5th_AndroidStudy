@@ -3,7 +3,6 @@ package com.comst.flocloneapp.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -12,7 +11,8 @@ import com.comst.flocloneapp.databinding.ItemSavedSongBinding
 import com.comst.flocloneapp.listener.SavedMusicListener
 import com.comst.flocloneapp.model.SongEntity
 
-class LockerSavedMusicAdapter(private val listener : SavedMusicListener) : ListAdapter<SongEntity,LockerSavedMusicAdapter.LockerSavedListViewHolder>(DiffCallback) {
+class LockerLikeSongAdapter(private val listener : SavedMusicListener) : ListAdapter<SongEntity, LockerLikeSongAdapter.LockerLikedListViewHolder>(
+    DiffCallback) {
 
     companion object{
         private val DiffCallback = object  : DiffUtil.ItemCallback<SongEntity>(){
@@ -28,12 +28,13 @@ class LockerSavedMusicAdapter(private val listener : SavedMusicListener) : ListA
         }
     }
 
-    inner class LockerSavedListViewHolder(private val binding : ItemSavedSongBinding) : RecyclerView.ViewHolder(binding.root){
+    inner class LockerLikedListViewHolder(private val binding : ItemSavedSongBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(savedMusic : SongEntity){
             binding.itemSongImgIv.setImageResource(savedMusic.coverImg!!)
             binding.itemSongSingerTv.text = savedMusic.singer
             binding.itemSongTitleTv.text = savedMusic.title
-            
+
+
             binding.itemSongPlayIv.setOnClickListener {
                 listener.savedSongsPlay(savedMusic)
             }
@@ -55,12 +56,12 @@ class LockerSavedMusicAdapter(private val listener : SavedMusicListener) : ListA
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LockerSavedListViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LockerLikedListViewHolder {
         val binding = ItemSavedSongBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return LockerSavedListViewHolder(binding)
+        return LockerLikedListViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: LockerSavedListViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: LockerLikedListViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
