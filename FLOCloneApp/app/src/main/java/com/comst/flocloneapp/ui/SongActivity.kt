@@ -12,20 +12,26 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.comst.flocloneapp.R
+import com.comst.flocloneapp.data.db.SongDatabase
 import com.comst.flocloneapp.databinding.ActivitySongBinding
 import com.comst.flocloneapp.model.AlbumIncludeMusic
+import com.comst.flocloneapp.model.SongEntity
 import com.comst.flocloneapp.util.MusicPlayServiceUtil
 import com.comst.flocloneapp.viewmodel.MiniPlayerViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.concurrent.TimeUnit
 
 class SongActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivitySongBinding
     private val miniPlayerViewModel : MiniPlayerViewModel by viewModels()
+    val songs = arrayListOf<SongEntity>()
+    lateinit var songDB : SongDatabase
+    var nowPos = 0
 
     var repeat = false
     var shuffle = false
@@ -38,19 +44,9 @@ class SongActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_song)
 
-        val musicTitle = intent.getStringExtra("musicTitle")
-        val musicSinger = intent.getStringExtra("musicSinger")
-        val musicTime = intent.getIntExtra("musicTime", 0)
-        val musicPlay = intent.getBooleanExtra("musicPlay", false)
+        nowPos = intent.getIntExtra("songId",0)
 
-        val albumIncludeMusic = AlbumIncludeMusic(0, musicTitle!!, false, musicSinger!!)
-
-        miniPlayerViewModel.updateMiniPlayerUI(albumIncludeMusic.musicName, albumIncludeMusic.artist)
-
-        miniPlayerViewModel.setMusicTime(musicTime)
-        updateTimerText(musicTime)
-        miniPlayerViewModel.musicPlay.value = musicPlay
-
+        initPlayList()
         initView()
         setObserve()
     }
@@ -70,6 +66,21 @@ class SongActivity : AppCompatActivity() {
             songMiniplayerIv.setOnClickListener {
                 miniPlayerViewModel.musicPlay.value = !miniPlayerViewModel.musicPlay.value!!
                 miniPlayerViewModel.musicPlayOrPause()
+            }
+
+            songLikeIv.setOnClickListener {
+
+                songs[nowPos].isLike = !songs[nowPos].isLike
+                if (songs[nowPos].isLike){
+                    songLikeIv.setImageResource(R.drawable.ic_my_like_on)
+                }else{
+                    songLikeIv.setImageResource(R.drawable.ic_my_like_off)
+                }
+                CoroutineScope(Dispatchers.IO).launch{
+                    songDB.SongDao().update(songs[nowPos])
+                    songs.addAll(songDB.SongDao().getSongs())
+                }
+
             }
 
             songProgressSb.setOnSeekBarChangeListener(object  : SeekBar.OnSeekBarChangeListener{
@@ -122,20 +133,69 @@ class SongActivity : AppCompatActivity() {
             }
 
             songNextIv.setOnClickListener {
-                miniPlayerViewModel.setMusicTime((songProgressSb.progress + 5).coerceAtMost(songProgressSb.max))
+                //miniPlayerViewModel.setMusicTime((songProgressSb.progress + 5).coerceAtMost(songProgressSb.max))
+                val songsSize = songs.size
+                nowPos = (nowPos + 1) % songsSize
 
+                changeSong()
             }
             songPreviousIv.setOnClickListener {
-                miniPlayerViewModel.setMusicTime((songProgressSb.progress - 5).coerceAtLeast(0))
+                //miniPlayerViewModel.setMusicTime((songProgressSb.progress - 5).coerceAtLeast(0))
+                val songsSize = songs.size
+                nowPos = if(nowPos - 1 < 0) songsSize - 1 else nowPos - 1
+                changeSong()
+            }
+        }
+    }
+
+    private fun changeSong(){
+        miniPlayerViewModel.setMusicTime(0)
+        updateTimerText(0)
+        miniPlayerViewModel.updateMiniPlayerUI(songs[nowPos].title, songs[nowPos].singer)
+        binding.songAlbumIv.setImageResource(songs[nowPos].coverImg!!)
+
+        if (songs[nowPos].isLike){
+            binding.songLikeIv.setImageResource(R.drawable.ic_my_like_on)
+        }else{
+            binding.songLikeIv.setImageResource(R.drawable.ic_my_like_off)
+        }
+    }
+
+    private fun initPlayList(){
+        songDB = SongDatabase.getInstance(this)!!
+        CoroutineScope(Dispatchers.IO).launch {
+            songs.addAll(songDB.SongDao().getSongs())
+            withContext(Dispatchers.Main){
+                miniPlayerViewModel.updateMiniPlayerUI(songs[nowPos].title, songs[nowPos].singer)
+
+                val musicTime = intent.getIntExtra("musicTime", 0)
+                val musicPlay = intent.getBooleanExtra("musicPlay", false)
+
+                miniPlayerViewModel.setMusicTime(musicTime)
+                updateTimerText(musicTime)
+                miniPlayerViewModel.musicPlay.value = musicPlay
+                binding.songAlbumIv.setImageResource(songs[nowPos].coverImg!!)
+
+                if (songs[nowPos].isLike){
+                    binding.songLikeIv.setImageResource(R.drawable.ic_my_like_on)
+                }else{
+                    binding.songLikeIv.setImageResource(R.drawable.ic_my_like_off)
+                }
             }
         }
     }
 
     private fun goMainActivity(){
+        val spf = getSharedPreferences("song", MODE_PRIVATE)
+        val editor = spf.edit()
+
+        editor.putInt("songId", nowPos)
+        editor.apply()
+
         val intent = Intent(this@SongActivity, MainActivity::class.java)
 
-        intent.putExtra("musicTitle", miniPlayerViewModel.musicPlayTitle.value)
-        intent.putExtra("musicSinger", miniPlayerViewModel.musicPlayArtist.value)
+//        intent.putExtra("musicTitle", miniPlayerViewModel.musicPlayTitle.value)
+//        intent.putExtra("musicSinger", miniPlayerViewModel.musicPlayArtist.value)
         intent.putExtra("musicTime", miniPlayerViewModel.musicTime.value)
         intent.putExtra("musicPlay", miniPlayerViewModel.musicPlay.value)
 
