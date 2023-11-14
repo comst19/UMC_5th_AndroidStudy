@@ -30,4 +30,7 @@ interface SongDao {
 
     @Query("UPDATE SongTable SET isLike = 0")
     fun setAllLikesToFalse()
+
+    @Query("SELECT * FROM SongTable WHERE albumIdx = :albumIdx")
+    fun getIncludeSong(albumIdx : Int) : List<SongEntity>
 }

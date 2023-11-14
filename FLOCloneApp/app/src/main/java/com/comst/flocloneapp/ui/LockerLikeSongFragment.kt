@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.comst.flocloneapp.R
 import com.comst.flocloneapp.data.db.SongDatabase
+import com.comst.flocloneapp.databinding.BottomSheetAllSelectBinding
 import com.comst.flocloneapp.databinding.FragmentLockerLikeSongBinding
 import com.comst.flocloneapp.databinding.FragmentLockerSavedSongBinding
 import com.comst.flocloneapp.listener.SavedMusicListener
@@ -18,6 +20,7 @@ import com.comst.flocloneapp.ui.adapter.LockerLikeSongAdapter
 import com.comst.flocloneapp.ui.adapter.LockerSavedMusicAdapter
 import com.comst.flocloneapp.util.MusicPlayServiceUtil
 import com.comst.flocloneapp.viewmodel.MiniPlayerViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,12 +32,14 @@ class LockerLikeSongFragment : Fragment(), SavedMusicListener {
     private var _binding : FragmentLockerLikeSongBinding? = null
     private val binding get() = _binding!!
 
-    private var likeSongList = arrayListOf<SongEntity>()
+    private var likeSongList = mutableListOf<SongEntity>()
     private val miniPlayerViewModel : MiniPlayerViewModel by activityViewModels()
 
     private val savedSongAdapter = LockerLikeSongAdapter(this)
 
     lateinit var songDB : SongDatabase
+
+    private var allSelect = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,7 +48,6 @@ class LockerLikeSongFragment : Fragment(), SavedMusicListener {
         _binding = FragmentLockerLikeSongBinding.inflate(inflater, container, false)
         songDB = SongDatabase.getInstance(requireContext())!!
         initView()
-        setObserve()
         return binding.root
     }
 
@@ -62,13 +66,28 @@ class LockerLikeSongFragment : Fragment(), SavedMusicListener {
         with(binding){
             //todayMusicRecyclerView.addItemDecoration(TodayMusicAdapterDecoration())
             lockerLikedSongRecyclerView.adapter = savedSongAdapter
+
+            allSelectLayout.setOnClickListener {
+                allSelected()
+            }
         }
 
     }
+    private fun allSelected(){
 
-    private fun setObserve(){
-        miniPlayerViewModel.clearLike.observe(viewLifecycleOwner, Observer{
-            if (it){
+        allSelect = !allSelect
+
+        if (allSelect){
+            binding.lockerSelectAllImgIv.setImageResource(R.drawable.btn_playlist_select_on)
+            binding.lockerSelectAllTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.flo))
+            binding.lockerSelectAllTv.text = "선택해제"
+
+            val bottomSheetBinding = BottomSheetAllSelectBinding.inflate(layoutInflater)
+            val bottomSheetDialog = BottomSheetDialog(requireContext())
+            bottomSheetDialog.setContentView(bottomSheetBinding.root)
+
+            bottomSheetBinding.deleteLayout.setOnClickListener {
+                bottomSheetDialog.dismiss()
                 CoroutineScope(Dispatchers.IO).launch {
                     songDB.SongDao().setAllLikesToFalse()
 
@@ -77,9 +96,21 @@ class LockerLikeSongFragment : Fragment(), SavedMusicListener {
                         savedSongAdapter.submitList(updatedList)
                     }
                 }
-                miniPlayerViewModel.clearLike.value = false
             }
-        })
+
+            bottomSheetDialog.setOnDismissListener {
+                allSelect = false
+                binding.lockerSelectAllImgIv.setImageResource(R.drawable.btn_playlist_select_off)
+                binding.lockerSelectAllTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryGrey))
+            }
+
+            bottomSheetDialog.show()
+        }else{
+            binding.lockerSelectAllImgIv.setImageResource(R.drawable.btn_playlist_select_off)
+            binding.lockerSelectAllTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryGrey))
+            binding.lockerSelectAllTv.text = "전체선택"
+        }
+
     }
 
     override fun onDestroyView() {
@@ -97,8 +128,22 @@ class LockerLikeSongFragment : Fragment(), SavedMusicListener {
     }
 
     override fun deleteSavedSong(position: Int) {
-        val updatedList = likeSongList.toMutableList()
-        updatedList.removeAt(position)
-        savedSongAdapter.submitList(likeSongList)
+
+        likeSongList[position].isLike = false
+
+        CoroutineScope(Dispatchers.IO).launch {
+            songDB.SongDao().update(likeSongList[position])
+
+            val updatedList =songDB.SongDao().getLikedSongs().toMutableList()
+            likeSongList = updatedList
+            withContext(Dispatchers.Main){
+                savedSongAdapter.submitList(updatedList)
+            }
+        }
+
+        //val updatedList = likeSongList.toMutableList()
+        //updatedList.removeAt(position)
+        //savedSongAdapter.submitList(likeSongList)
+        //likeSongList = updatedList
     }
 }

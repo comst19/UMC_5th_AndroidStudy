@@ -45,7 +45,7 @@ class HomeFragment : Fragment(), ItemTodayMusicListener {
     private val everydayMusicAdapter = EverydayMusicAdapter()
     private val videoMusicAdapter = VideoMusicAdapter()
     private val bannerAdapter = HomeBannerViewPagerAdapter()
-    private val todayAlbumAdapter = TodayAlbumAdapter()
+    private val todayAlbumAdapter = TodayAlbumAdapter(this)
 
     private val todayMusicList = mutableListOf<TodayMusic>()
     private val everyMusicList = mutableListOf<EverydayMusic>()
@@ -174,21 +174,32 @@ class HomeFragment : Fragment(), ItemTodayMusicListener {
     override fun goAlbumFragment(position: Int) {
 
         val bundle = Bundle().apply {
-            putString("albumName", todayMusicList[position].musicName)
-            putString("artistName", todayMusicList[position].artist)
+            //putString("albumName", todayMusicList[position].musicName)
+            //putString("artistName", todayMusicList[position].artist)
+            putInt("albumIndex", position)
         }
 
         findNavController().navigate(R.id.albumFragment,bundle)
 
     }
 
-    override fun playMusic(todayMusic: TodayMusic) {
-        MusicPlayServiceUtil.stopService(requireContext())
-        miniPlayerViewModel.resetViewModel()
-        miniPlayerViewModel.updateMiniPlayerUI(todayMusic.musicName,todayMusic.artist)
-        miniPlayerViewModel.musicPlay.value = true
-        miniPlayerViewModel.isMusicTimeOver.value = false
-        miniPlayerViewModel.musicPlayOrPause()
+    // 바꿀게 너무 많아서 적당히 함
+    override fun playMusic(albumId : Int) {
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val albumInclude = songDB.SongDao().getIncludeSong(albumId)
+
+            withContext(Dispatchers.Main){
+                MusicPlayServiceUtil.stopService(requireContext())
+                miniPlayerViewModel.resetViewModel()
+                miniPlayerViewModel.updateMiniPlayerUI(albumInclude[0].title,albumInclude[0].singer)
+                miniPlayerViewModel.musicPlay.value = true
+                miniPlayerViewModel.isMusicTimeOver.value = false
+                miniPlayerViewModel.musicPlayOrPause()
+            }
+        }
+
+
     }
 
 }

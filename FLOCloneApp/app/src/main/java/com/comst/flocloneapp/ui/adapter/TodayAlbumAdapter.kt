@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.comst.flocloneapp.databinding.ItemTodayMusicBinding
+import com.comst.flocloneapp.listener.ItemTodayMusicListener
 import com.comst.flocloneapp.model.AlbumEntity
-import com.comst.flocloneapp.model.TodayMusic
 
-class TodayAlbumAdapter  : ListAdapter<AlbumEntity, TodayAlbumAdapter.TodayAlbumListViewHolder>(DiffCallback){
+class TodayAlbumAdapter(private val listener : ItemTodayMusicListener)  : ListAdapter<AlbumEntity, TodayAlbumAdapter.TodayAlbumListViewHolder>(DiffCallback){
     companion object{
         private val DiffCallback = object  : DiffUtil.ItemCallback<AlbumEntity>(){
             override fun areItemsTheSame(oldItem: AlbumEntity, newItem: AlbumEntity): Boolean {
@@ -25,15 +25,15 @@ class TodayAlbumAdapter  : ListAdapter<AlbumEntity, TodayAlbumAdapter.TodayAlbum
     }
 
     inner class TodayAlbumListViewHolder(private val binding : ItemTodayMusicBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(todayMusic : AlbumEntity){
-            binding.todayMusicTitleTextView.text = todayMusic.title
-            binding.todayMusicArtistTextView.text = todayMusic.singer
-            binding.todayMusicImageView.setImageResource(todayMusic.coverImg!!)
+        fun bind(album : AlbumEntity){
+            binding.todayMusicTitleTextView.text = album.title
+            binding.todayMusicArtistTextView.text = album.singer
+            binding.todayMusicImageView.setImageResource(album.coverImg!!)
             binding.root.setOnClickListener {
-                //listener.goAlbumFragment(adapterPosition)
+                listener.goAlbumFragment(adapterPosition)
             }
             binding.todayPlayMusic.setOnClickListener {
-                //listener.playMusic(todayMusic)
+                listener.playMusic(album.id)
             }
         }
 

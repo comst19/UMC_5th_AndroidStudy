@@ -78,9 +78,11 @@ class LockerSavedSongFragment : Fragment(), SavedMusicListener {
         miniPlayerViewModel.musicPlayOrPause()
     }
 
+    // Room 내용은 따로 안 바꿈
     override fun deleteSavedSong(position: Int) {
         val updatedList = savedMusicList.toMutableList()
         updatedList.removeAt(position)
         savedSongAdapter.submitList(updatedList)
+        savedMusicList = updatedList
     }
 }
