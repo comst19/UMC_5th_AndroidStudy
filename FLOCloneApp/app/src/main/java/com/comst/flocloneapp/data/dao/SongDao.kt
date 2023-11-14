@@ -27,4 +27,7 @@ interface SongDao {
 
     @Query("SELECT * FROM SongTable WHERE isLike = 1")
     fun getLikedSongs() : List<SongEntity>
+
+    @Query("UPDATE SongTable SET isLike = 0")
+    fun setAllLikesToFalse()
 }

@@ -15,6 +15,7 @@ import androidx.navigation.ui.NavigationUI
 import com.comst.flocloneapp.R
 import com.comst.flocloneapp.data.db.SongDatabase
 import com.comst.flocloneapp.databinding.ActivityMainBinding
+import com.comst.flocloneapp.model.AlbumEntity
 import com.comst.flocloneapp.model.AlbumIncludeMusic
 import com.comst.flocloneapp.model.SongEntity
 import com.comst.flocloneapp.util.MusicPlayServiceUtil
@@ -73,7 +74,7 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host)
 
         inputDummySongs()
-
+        inputDummyAlbums()
 
         NavigationUI.setupWithNavController(binding.navBottomBar, findNavController(R.id.nav_host))
 
@@ -253,6 +254,7 @@ class MainActivity : AppCompatActivity() {
                         "music_lilac",
                         R.drawable.img_album_exp2,
                         false,
+                        0
                     )
                 )
 
@@ -266,6 +268,7 @@ class MainActivity : AppCompatActivity() {
                         "music_flu",
                         R.drawable.img_album_exp2,
                         false,
+                        0
                     )
                 )
 
@@ -279,6 +282,7 @@ class MainActivity : AppCompatActivity() {
                         "music_butter",
                         R.drawable.img_album_exp,
                         false,
+                        1
                     )
                 )
 
@@ -292,6 +296,8 @@ class MainActivity : AppCompatActivity() {
                         "music_next",
                         R.drawable.img_album_exp3,
                         false,
+                        2
+
                     )
                 )
 
@@ -299,13 +305,14 @@ class MainActivity : AppCompatActivity() {
                 songDB.SongDao().insert(
                     SongEntity(
                         "Boy with Luv",
-                        "music_boy",
+                        "방탄소년단 (BTS)",
                         0,
                         230,
                         false,
                         "music_lilac",
                         R.drawable.img_album_exp4,
                         false,
+                        3
                     )
                 )
 
@@ -320,11 +327,58 @@ class MainActivity : AppCompatActivity() {
                         "music_bboom",
                         R.drawable.img_album_exp5,
                         false,
+                        4
                     )
                 )
             }
         }
 
         initPlayList()
+    }
+
+    private fun inputDummyAlbums() {
+        val songDB = SongDatabase.getInstance(this)!!
+
+        CoroutineScope(Dispatchers.IO).launch{
+            val albums = songDB.AlbumDao().getAlbums()
+
+            if (albums.isNotEmpty()) return@launch
+
+            songDB.AlbumDao().insert(
+                AlbumEntity(
+                    0,
+                    "IU 5th Album 'LILAC'", "아이유 (IU)", R.drawable.img_album_exp2
+                )
+            )
+
+            songDB.AlbumDao().insert(
+                AlbumEntity(
+                    1,
+                    "Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp
+                )
+            )
+
+            songDB.AlbumDao().insert(
+                AlbumEntity(
+                    2,
+                    "iScreaM Vol.10 : Next Level Remixes", "에스파 (AESPA)", R.drawable.img_album_exp3
+                )
+            )
+
+            songDB.AlbumDao().insert(
+                AlbumEntity(
+                    3,
+                    "MAP OF THE SOUL : PERSONA", "방탄소년단 (BTS)", R.drawable.img_album_exp4
+                )
+            )
+
+            songDB.AlbumDao().insert(
+                AlbumEntity(
+                    4,
+                    "GREAT!", "모모랜드 (MOMOLAND)", R.drawable.img_album_exp5
+                )
+            )
+
+        }
     }
 }

@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import com.comst.flocloneapp.R
 import com.comst.flocloneapp.data.db.SongDatabase
 import com.comst.flocloneapp.databinding.FragmentLockerLikeSongBinding
@@ -41,6 +43,7 @@ class LockerLikeSongFragment : Fragment(), SavedMusicListener {
         _binding = FragmentLockerLikeSongBinding.inflate(inflater, container, false)
         songDB = SongDatabase.getInstance(requireContext())!!
         initView()
+        setObserve()
         return binding.root
     }
 
@@ -61,6 +64,22 @@ class LockerLikeSongFragment : Fragment(), SavedMusicListener {
             lockerLikedSongRecyclerView.adapter = savedSongAdapter
         }
 
+    }
+
+    private fun setObserve(){
+        miniPlayerViewModel.clearLike.observe(viewLifecycleOwner, Observer{
+            if (it){
+                CoroutineScope(Dispatchers.IO).launch {
+                    songDB.SongDao().setAllLikesToFalse()
+
+                    val updatedList =songDB.SongDao().getLikedSongs().toMutableList()
+                    withContext(Dispatchers.Main){
+                        savedSongAdapter.submitList(updatedList)
+                    }
+                }
+                miniPlayerViewModel.clearLike.value = false
+            }
+        })
     }
 
     override fun onDestroyView() {

@@ -7,9 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import com.comst.flocloneapp.R
+import com.comst.flocloneapp.data.db.SongDatabase
+import com.comst.flocloneapp.databinding.BottomSheetAllSelectBinding
 import com.comst.flocloneapp.ui.adapter.LockerViewPagerAdapter
 import com.comst.flocloneapp.databinding.FragmentLockerBinding
+import com.comst.flocloneapp.viewmodel.MiniPlayerViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -21,13 +26,16 @@ class LockerFragment : Fragment() {
 
     private var allSelected = false
 
+    lateinit var songDB : SongDatabase
+    private val miniPlayerViewModel : MiniPlayerViewModel by activityViewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentLockerBinding.inflate(inflater, container, false)
-
+        songDB = SongDatabase.getInstance(requireContext())!!
         initView()
 
         return binding.root
@@ -74,6 +82,24 @@ class LockerFragment : Fragment() {
         if (allSelected){
             binding.lockerSelectAllImgIv.setImageResource(R.drawable.btn_playlist_select_on)
             binding.lockerSelectAllTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.flo))
+
+            val bottomSheetBinding = BottomSheetAllSelectBinding.inflate(layoutInflater)
+            val bottomSheetDialog = BottomSheetDialog(requireContext())
+            bottomSheetDialog.setContentView(bottomSheetBinding.root)
+
+            bottomSheetBinding.deleteLayout.setOnClickListener {
+                bottomSheetDialog.dismiss()
+                miniPlayerViewModel.clearLike.value = true
+            }
+
+            bottomSheetDialog.setOnDismissListener {
+                allSelected = !allSelected
+                binding.lockerSelectAllImgIv.setImageResource(R.drawable.btn_playlist_select_off)
+                binding.lockerSelectAllTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryGrey))
+
+            }
+
+            bottomSheetDialog.show()
         }else{
             binding.lockerSelectAllImgIv.setImageResource(R.drawable.btn_playlist_select_off)
             binding.lockerSelectAllTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryGrey))

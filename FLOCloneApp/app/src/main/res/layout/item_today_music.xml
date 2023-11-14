@@ -15,12 +15,15 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/todayMusicTitleTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:layout_marginTop="10dp"
         android:text="LILAC"
         android:textColor="@color/black"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/todayMusicImageView" />
 
@@ -35,12 +38,15 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/todayMusicArtistTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:ellipsize="end"
+        android:maxLines="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/todayMusicTitleTextView"
         android:textColor="#BBBBBB"
         android:text="아이유 (IU)"
-        android:textSize="20sp"/>
+        android:textSize="16sp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,6 +27,8 @@ class MiniPlayerViewModel : ViewModel() {
     val musicPlay = MutableLiveData<Boolean>(false)
     val isMusicTimeOver = MutableLiveData<Boolean>(false)
 
+    val clearLike = MutableLiveData<Boolean>(false)
+
     private val _musicTime = MutableLiveData<Int>(0)
     val musicTime : LiveData<Int> get() = _musicTime
 
