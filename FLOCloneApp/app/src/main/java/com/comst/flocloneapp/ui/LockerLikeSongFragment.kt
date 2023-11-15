@@ -135,12 +135,11 @@ class LockerLikeSongFragment : Fragment(), SavedMusicListener {
             songDB.SongDao().update(likeSongList[position])
 
             val updatedList =songDB.SongDao().getLikedSongs().toMutableList()
-            likeSongList = updatedList
+            //likeSongList = updatedList
             withContext(Dispatchers.Main){
                 savedSongAdapter.submitList(updatedList)
             }
         }
-
         //val updatedList = likeSongList.toMutableList()
         //updatedList.removeAt(position)
         //savedSongAdapter.submitList(likeSongList)

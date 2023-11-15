@@ -26,7 +26,7 @@ abstract class SongDatabase : RoomDatabase() {
                         context.applicationContext,
                         SongDatabase::class.java,
                         "song-database"
-                    ).build()
+                    ).fallbackToDestructiveMigration().build()
                 }
             }
 
