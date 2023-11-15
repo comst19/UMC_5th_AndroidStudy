@@ -6,13 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import com.comst.flocloneapp.data.db.SongDatabase
 import com.comst.flocloneapp.ui.adapter.AlbumIncludedMusicAdapter
 import com.comst.flocloneapp.databinding.FragmentAlbumIncludedSongsBinding
 import com.comst.flocloneapp.listener.PlayMusicListener
 import com.comst.flocloneapp.model.AlbumIncludeMusic
+import com.comst.flocloneapp.model.SongEntity
 import com.comst.flocloneapp.service.MusicPlayService
 import com.comst.flocloneapp.util.MusicPlayServiceUtil
 import com.comst.flocloneapp.viewmodel.MiniPlayerViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class AlbumIncludedSongsFragment : Fragment(), PlayMusicListener {
@@ -21,8 +27,12 @@ class AlbumIncludedSongsFragment : Fragment(), PlayMusicListener {
     private val binding get() = _binding!!
 
     private val albumIncludedMusicAdapter = AlbumIncludedMusicAdapter(this)
-    private val albumIncludeMusicList = mutableListOf<AlbumIncludeMusic>()
+    //private val albumIncludeMusicList = mutableListOf<AlbumIncludeMusic>()
+    private var albumIncludeSongList = mutableListOf<SongEntity>()
     private val miniPlayerViewModel : MiniPlayerViewModel by activityViewModels()
+
+    lateinit var songDB : SongDatabase
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,6 +41,7 @@ class AlbumIncludedSongsFragment : Fragment(), PlayMusicListener {
         // Inflate the layout for this fragment
 
         _binding = FragmentAlbumIncludedSongsBinding.inflate(inflater, container, false)
+        songDB = SongDatabase.getInstance(requireContext())!!
 
         initView()
         return binding.root
@@ -38,18 +49,32 @@ class AlbumIncludedSongsFragment : Fragment(), PlayMusicListener {
 
     private fun initView(){
 
+        getAlbumIncludeSongs()
 
         with(binding){
 
-            albumIncludeMusicDummy()
+            //albumIncludeMusicDummy()
 
             albumIncludedSongRecyclerView.addItemDecoration(TodayMusicAdapterDecoration())
             albumIncludedSongRecyclerView.adapter = albumIncludedMusicAdapter
-            albumIncludedMusicAdapter.submitList(albumIncludeMusicList)
+            //albumIncludedMusicAdapter.submitList(albumIncludeMusicList)
         }
 
     }
 
+    private fun getAlbumIncludeSongs(){
+
+
+        val albumId = miniPlayerViewModel.albumId.value!!
+
+        CoroutineScope(Dispatchers.IO).launch {
+
+            albumIncludeSongList = songDB.SongDao().getIncludeSong(albumId).toMutableList()
+            albumIncludedMusicAdapter.submitList(albumIncludeSongList)
+        }
+    }
+
+    /*
     private fun albumIncludeMusicDummy(){
 
         for (i in 1..6){
@@ -63,15 +88,16 @@ class AlbumIncludedSongsFragment : Fragment(), PlayMusicListener {
 
         }
     }
+    */
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-    override fun albumIncludedSongsPlay(albumIncludeMusic: AlbumIncludeMusic) {
+    override fun albumIncludedSongsPlay(albumIncludeMusic: SongEntity) {
         MusicPlayServiceUtil.stopService(requireContext())
         miniPlayerViewModel.resetViewModel()
-        miniPlayerViewModel.updateMiniPlayerUI(albumIncludeMusic.musicName, albumIncludeMusic.artist)
+        miniPlayerViewModel.updateMiniPlayerUI(albumIncludeMusic.title, albumIncludeMusic.singer)
         miniPlayerViewModel.musicPlay.value = true
         miniPlayerViewModel.isMusicTimeOver.value = false
         miniPlayerViewModel.musicPlayOrPause()

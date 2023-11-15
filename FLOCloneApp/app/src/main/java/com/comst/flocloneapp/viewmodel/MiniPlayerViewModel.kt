@@ -32,6 +32,13 @@ class MiniPlayerViewModel : ViewModel() {
     private val _musicTime = MutableLiveData<Int>(0)
     val musicTime : LiveData<Int> get() = _musicTime
 
+    private val _albumId = MutableLiveData<Int>(0)
+    val albumId : LiveData<Int> get() = _albumId
+
+    fun setAlbumId(albumId : Int){
+        _albumId.value = albumId
+    }
+
     fun updateMiniPlayerUI(musicName : String, artist : String){
         _musicPlayTitle.value = musicName
         _musicPlayArtist.value = artist

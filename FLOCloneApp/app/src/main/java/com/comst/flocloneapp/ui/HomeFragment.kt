@@ -173,10 +173,11 @@ class HomeFragment : Fragment(), ItemTodayMusicListener {
 
     override fun goAlbumFragment(position: Int) {
 
+        miniPlayerViewModel.setAlbumId(position)
+
         val bundle = Bundle().apply {
             //putString("albumName", todayMusicList[position].musicName)
             //putString("artistName", todayMusicList[position].artist)
-            putInt("albumIndex", position)
         }
 
         findNavController().navigate(R.id.albumFragment,bundle)
@@ -198,8 +199,6 @@ class HomeFragment : Fragment(), ItemTodayMusicListener {
                 miniPlayerViewModel.musicPlayOrPause()
             }
         }
-
-
     }
 
 }

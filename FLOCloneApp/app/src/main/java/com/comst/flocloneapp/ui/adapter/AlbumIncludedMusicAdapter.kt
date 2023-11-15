@@ -8,20 +8,20 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.comst.flocloneapp.databinding.ItemAlbumIncludedSongBinding
 import com.comst.flocloneapp.listener.PlayMusicListener
-import com.comst.flocloneapp.model.AlbumIncludeMusic
+import com.comst.flocloneapp.model.SongEntity
 
-class AlbumIncludedMusicAdapter(private val listener : PlayMusicListener) : ListAdapter<AlbumIncludeMusic, AlbumIncludedMusicAdapter.AlbumIncludedMusicListViewHolder>(
+class AlbumIncludedMusicAdapter(private val listener : PlayMusicListener) : ListAdapter<SongEntity, AlbumIncludedMusicAdapter.AlbumIncludedMusicListViewHolder>(
     DiffCallback
 ) {
 
     companion object{
-        private val DiffCallback = object  : DiffUtil.ItemCallback<AlbumIncludeMusic>(){
-            override fun areItemsTheSame(oldItem: AlbumIncludeMusic, newItem: AlbumIncludeMusic): Boolean {
+        private val DiffCallback = object  : DiffUtil.ItemCallback<SongEntity>(){
+            override fun areItemsTheSame(oldItem: SongEntity, newItem: SongEntity): Boolean {
                 return oldItem.id == newItem.id
 
             }
 
-            override fun areContentsTheSame(oldItem: AlbumIncludeMusic, newItem: AlbumIncludeMusic): Boolean {
+            override fun areContentsTheSame(oldItem: SongEntity, newItem: SongEntity): Boolean {
                 return oldItem == newItem
             }
 
@@ -31,16 +31,11 @@ class AlbumIncludedMusicAdapter(private val listener : PlayMusicListener) : List
 
     inner class AlbumIncludedMusicListViewHolder(private val binding : ItemAlbumIncludedSongBinding) : RecyclerView.ViewHolder(binding.root){
 
-        fun bind(albumIncludeMusic : AlbumIncludeMusic){
+        fun bind(albumIncludeMusic : SongEntity){
 
             binding.albumSongIndex.text = albumIncludeMusic.id.toString()
-            binding.musicArtistTextView.text = albumIncludeMusic.artist
-            binding.musicTitleTextView.text = albumIncludeMusic.musicName
-            if (albumIncludeMusic.isTitleMusic){
-                binding.isTitleTextView.visibility = View.VISIBLE
-            }else{
-                binding.isTitleTextView.visibility = View.GONE
-            }
+            binding.musicArtistTextView.text = albumIncludeMusic.singer
+            binding.musicTitleTextView.text = albumIncludeMusic.title
 
             binding.albumIncludedSongPlay.setOnClickListener {
                 listener.albumIncludedSongsPlay(albumIncludeMusic)

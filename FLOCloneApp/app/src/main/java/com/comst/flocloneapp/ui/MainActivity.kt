@@ -131,7 +131,7 @@ class MainActivity : AppCompatActivity() {
         setObserve()
     }
 
-    fun setObserve(){
+    private fun setObserve(){
         miniPlayerViewModel.musicPlayArtist.observe(this){
             binding.musicPlayArtist.text = it
         }

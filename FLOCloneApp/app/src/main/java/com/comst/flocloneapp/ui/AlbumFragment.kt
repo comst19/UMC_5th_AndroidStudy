@@ -9,11 +9,13 @@ import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.comst.flocloneapp.R
 import com.comst.flocloneapp.data.db.SongDatabase
 import com.comst.flocloneapp.ui.adapter.AlbumFragmentViewPagerAdapter
 import com.comst.flocloneapp.databinding.FragmentAlbumBinding
+import com.comst.flocloneapp.viewmodel.MiniPlayerViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.CoroutineScope
@@ -27,6 +29,7 @@ class AlbumFragment : Fragment(){
     private val binding get() = _binding!!
 
     lateinit var songDB : SongDatabase
+    private val miniPlayerViewModel : MiniPlayerViewModel by activityViewModels()
 
 
     override fun onCreateView(
@@ -46,10 +49,10 @@ class AlbumFragment : Fragment(){
 
         //val albumName = arguments?.getString("albumName")
         //val artistName = arguments?.getString("artistName")
-        val albumIndex = arguments?.getInt("albumIndex",1)
+        val albumId = miniPlayerViewModel.albumId.value!!
 
         CoroutineScope(Dispatchers.IO).launch{
-            val album = songDB.AlbumDao().getAlbum(albumIndex!!)
+            val album = songDB.AlbumDao().getAlbum(albumId)
 
             withContext(Dispatchers.Main){
                 binding.albumTitle.text = album.title
