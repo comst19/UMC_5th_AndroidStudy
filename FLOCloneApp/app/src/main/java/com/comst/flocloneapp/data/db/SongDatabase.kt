@@ -8,10 +8,11 @@ import com.comst.flocloneapp.data.dao.AlbumDao
 import com.comst.flocloneapp.data.dao.SongDao
 import com.comst.flocloneapp.data.dao.UserDao
 import com.comst.flocloneapp.model.AlbumEntity
+import com.comst.flocloneapp.model.LikeEntity
 import com.comst.flocloneapp.model.SongEntity
 import com.comst.flocloneapp.model.UserEntity
 
-@Database(entities = [SongEntity::class, AlbumEntity::class, UserEntity::class],  version = 1)
+@Database(entities = [SongEntity::class, AlbumEntity::class, UserEntity::class, LikeEntity::class],  version = 1)
 abstract class SongDatabase : RoomDatabase() {
 
     abstract fun SongDao() : SongDao
