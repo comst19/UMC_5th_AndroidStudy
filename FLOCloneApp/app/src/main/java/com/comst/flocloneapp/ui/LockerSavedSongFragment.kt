@@ -6,12 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import com.comst.flocloneapp.R
 import com.comst.flocloneapp.data.db.SongDatabase
 import com.comst.flocloneapp.databinding.FragmentLockerSavedSongBinding
 import com.comst.flocloneapp.listener.SavedMusicListener
-import com.comst.flocloneapp.model.LockerSavedMusic
-import com.comst.flocloneapp.model.SongEntity
+import com.comst.flocloneapp.model.local.SongEntity
 import com.comst.flocloneapp.ui.adapter.LockerSavedMusicAdapter
 import com.comst.flocloneapp.util.MusicPlayServiceUtil
 import com.comst.flocloneapp.viewmodel.MiniPlayerViewModel

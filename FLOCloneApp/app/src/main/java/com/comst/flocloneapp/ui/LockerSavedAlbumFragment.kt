@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.comst.flocloneapp.data.db.SongDatabase
 import com.comst.flocloneapp.databinding.FragmentLockerSavedAlbumBinding
-import com.comst.flocloneapp.model.AlbumEntity
+import com.comst.flocloneapp.model.local.AlbumEntity
 import com.comst.flocloneapp.ui.adapter.LockerSavedAlbumAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

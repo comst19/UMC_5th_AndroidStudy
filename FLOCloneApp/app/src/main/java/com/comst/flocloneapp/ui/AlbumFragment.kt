@@ -9,7 +9,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -18,7 +17,7 @@ import com.comst.flocloneapp.R
 import com.comst.flocloneapp.data.db.SongDatabase
 import com.comst.flocloneapp.ui.adapter.AlbumFragmentViewPagerAdapter
 import com.comst.flocloneapp.databinding.FragmentAlbumBinding
-import com.comst.flocloneapp.model.LikeEntity
+import com.comst.flocloneapp.model.local.LikeEntity
 import com.comst.flocloneapp.util.ToastLikeOnOff
 import com.comst.flocloneapp.viewmodel.MiniPlayerViewModel
 import com.google.android.material.tabs.TabLayout

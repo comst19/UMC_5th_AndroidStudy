@@ -6,8 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.comst.flocloneapp.databinding.ItemVideoMusicBinding
-import com.comst.flocloneapp.model.TodayMusic
-import com.comst.flocloneapp.model.VideoMusic
+import com.comst.flocloneapp.model.local.VideoMusic
 
 class VideoMusicAdapter : ListAdapter<VideoMusic, VideoMusicAdapter.VideoMusicListViewHolder>(
     DiffCallback

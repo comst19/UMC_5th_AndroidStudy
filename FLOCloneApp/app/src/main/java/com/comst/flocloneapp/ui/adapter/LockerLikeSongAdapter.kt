@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.comst.flocloneapp.R
 import com.comst.flocloneapp.databinding.ItemSavedSongBinding
 import com.comst.flocloneapp.listener.SavedMusicListener
-import com.comst.flocloneapp.model.SongEntity
+import com.comst.flocloneapp.model.local.SongEntity
 
 class LockerLikeSongAdapter(private val listener : SavedMusicListener) : ListAdapter<SongEntity, LockerLikeSongAdapter.LockerLikedListViewHolder>(
     DiffCallback) {

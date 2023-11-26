@@ -7,8 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.comst.flocloneapp.databinding.ItemTodayMusicBinding
 import com.comst.flocloneapp.listener.ItemTodayMusicListener
-import com.comst.flocloneapp.model.EverydayMusic
-import com.comst.flocloneapp.model.TodayMusic
+import com.comst.flocloneapp.model.local.TodayMusic
 
 class TodayMusicAdapter(private val listener : ItemTodayMusicListener) : ListAdapter<TodayMusic, TodayMusicAdapter.TodayMusicListViewHolder>(
     DiffCallback

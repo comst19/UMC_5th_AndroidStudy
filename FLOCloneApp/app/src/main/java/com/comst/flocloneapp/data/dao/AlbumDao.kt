@@ -5,8 +5,8 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.comst.flocloneapp.model.AlbumEntity
-import com.comst.flocloneapp.model.LikeEntity
+import com.comst.flocloneapp.model.local.AlbumEntity
+import com.comst.flocloneapp.model.local.LikeEntity
 
 @Dao
 interface AlbumDao {

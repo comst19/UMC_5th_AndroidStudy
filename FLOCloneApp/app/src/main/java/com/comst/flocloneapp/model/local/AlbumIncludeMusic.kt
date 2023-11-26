@@ -1,4 +1,4 @@
-package com.comst.flocloneapp.model
+package com.comst.flocloneapp.model.local
 
 data class AlbumIncludeMusic(
     val id : Int,

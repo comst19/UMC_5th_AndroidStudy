@@ -2,16 +2,15 @@ package com.comst.flocloneapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
-import com.comst.flocloneapp.R
 import com.comst.flocloneapp.data.db.SongDatabase
 import com.comst.flocloneapp.databinding.ActivitySignUpBinding
-import com.comst.flocloneapp.model.UserEntity
+import com.comst.flocloneapp.model.local.UserEntity
 import com.comst.flocloneapp.util.ToastLikeOnOff
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -41,14 +40,18 @@ class SignUpActivity : AppCompatActivity() {
 
                 CoroutineScope(Dispatchers.IO).launch {
 
-                    val email = signUpIdEt.text.toString()
-                    val address = signUpDirectInputEt.text.toString()
+                    val email = "${signUpIdEt.text}@${signUpDirectInputEt.text}"
                     val name = signUpNameEt.text.toString()
                     val password = signUpPasswordEt.text.toString()
 
-                    val user = UserEntity(email, address, password, name)
+                    val user = UserEntity(email, password, name)
 
-                    songDB.UserDao().insert(user)
+                    try {
+                        songDB.UserDao().insert(user)
+
+                    }catch (e:Exception){
+                        Log.d("버그", email)
+                    }
                 }
 
                 ToastLikeOnOff.createToast(this@SignUpActivity, "회원가입 되었습니다.")?.show()

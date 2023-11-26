@@ -1,12 +1,12 @@
-package com.comst.flocloneapp.model
+package com.comst.flocloneapp.model.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "UserTable")
 data class UserEntity(
     val email: String,
-    val emailAddress : String,
     val password: String,
     val name: String
 ) {

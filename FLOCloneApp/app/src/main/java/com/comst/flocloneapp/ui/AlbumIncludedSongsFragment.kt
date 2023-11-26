@@ -10,15 +10,12 @@ import com.comst.flocloneapp.data.db.SongDatabase
 import com.comst.flocloneapp.ui.adapter.AlbumIncludedMusicAdapter
 import com.comst.flocloneapp.databinding.FragmentAlbumIncludedSongsBinding
 import com.comst.flocloneapp.listener.PlayMusicListener
-import com.comst.flocloneapp.model.AlbumIncludeMusic
-import com.comst.flocloneapp.model.SongEntity
-import com.comst.flocloneapp.service.MusicPlayService
+import com.comst.flocloneapp.model.local.SongEntity
 import com.comst.flocloneapp.util.MusicPlayServiceUtil
 import com.comst.flocloneapp.viewmodel.MiniPlayerViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 class AlbumIncludedSongsFragment : Fragment(), PlayMusicListener {

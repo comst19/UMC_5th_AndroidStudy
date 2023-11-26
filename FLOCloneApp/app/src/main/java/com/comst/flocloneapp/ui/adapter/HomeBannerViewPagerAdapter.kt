@@ -2,12 +2,11 @@ package com.comst.flocloneapp.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.comst.flocloneapp.databinding.ItemBannerBinding
-import com.comst.flocloneapp.model.HomeBanner
+import com.comst.flocloneapp.model.local.HomeBanner
 
 class HomeBannerViewPagerAdapter : ListAdapter<HomeBanner, HomeBannerViewPagerAdapter.HomeBannerViewHolder>(
     DiffCallback

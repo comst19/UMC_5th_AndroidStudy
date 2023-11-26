@@ -3,14 +3,13 @@ package com.comst.flocloneapp.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.comst.flocloneapp.R
 import com.comst.flocloneapp.databinding.ItemSavedSongBinding
 import com.comst.flocloneapp.listener.SavedMusicListener
-import com.comst.flocloneapp.model.SongEntity
+import com.comst.flocloneapp.model.local.SongEntity
 
 class LockerSavedMusicAdapter(private val listener : SavedMusicListener) : ListAdapter<SongEntity,LockerSavedMusicAdapter.LockerSavedListViewHolder>(DiffCallback) {
 

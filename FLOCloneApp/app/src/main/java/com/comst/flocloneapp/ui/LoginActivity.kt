@@ -52,11 +52,10 @@ class LoginActivity : AppCompatActivity() {
                 }
                 CoroutineScope(Dispatchers.IO).launch {
 
-                    val email = loginIdEt.text.toString()
-                    val address = loginDirectInputEt.text.toString()
+                    val email = "${loginIdEt.text}@${loginDirectInputEt.text}"
                     val password = loginPasswordEt.text.toString()
 
-                    val currentUser = songDB.UserDao().getUser(email, address, password)
+                    val currentUser = songDB.UserDao().getUser(email, password)
 
                     if (currentUser == null){
                         withContext(Dispatchers.Main){

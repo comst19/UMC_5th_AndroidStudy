@@ -1,6 +1,6 @@
-package com.comst.flocloneapp.model
+package com.comst.flocloneapp.model.local
 
-data class TodayMusic (
+data class VideoMusic (
     val id : Int,
     val musicName : String,
     val artist : String

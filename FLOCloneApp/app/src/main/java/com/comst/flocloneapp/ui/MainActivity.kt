@@ -3,11 +3,9 @@ package com.comst.flocloneapp.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.SeekBar
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
@@ -15,9 +13,8 @@ import androidx.navigation.ui.NavigationUI
 import com.comst.flocloneapp.R
 import com.comst.flocloneapp.data.db.SongDatabase
 import com.comst.flocloneapp.databinding.ActivityMainBinding
-import com.comst.flocloneapp.model.AlbumEntity
-import com.comst.flocloneapp.model.AlbumIncludeMusic
-import com.comst.flocloneapp.model.SongEntity
+import com.comst.flocloneapp.model.local.AlbumEntity
+import com.comst.flocloneapp.model.local.SongEntity
 import com.comst.flocloneapp.util.MusicPlayServiceUtil
 import com.comst.flocloneapp.viewmodel.MiniPlayerViewModel
 import kotlinx.coroutines.CoroutineScope

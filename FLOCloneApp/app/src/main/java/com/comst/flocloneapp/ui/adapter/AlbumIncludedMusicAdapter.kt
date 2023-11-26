@@ -1,14 +1,13 @@
 package com.comst.flocloneapp.ui.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.comst.flocloneapp.databinding.ItemAlbumIncludedSongBinding
 import com.comst.flocloneapp.listener.PlayMusicListener
-import com.comst.flocloneapp.model.SongEntity
+import com.comst.flocloneapp.model.local.SongEntity
 
 class AlbumIncludedMusicAdapter(private val listener : PlayMusicListener) : ListAdapter<SongEntity, AlbumIncludedMusicAdapter.AlbumIncludedMusicListViewHolder>(
     DiffCallback

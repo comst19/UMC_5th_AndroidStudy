@@ -6,8 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.comst.flocloneapp.databinding.ItemLockerAlbumBinding
-import com.comst.flocloneapp.databinding.ItemTodayMusicBinding
-import com.comst.flocloneapp.model.AlbumEntity
+import com.comst.flocloneapp.model.local.AlbumEntity
 
 class LockerSavedAlbumAdapter :
     ListAdapter<AlbumEntity, LockerSavedAlbumAdapter.LockerSavedAlbumListViewHolder>(DiffCallback) {

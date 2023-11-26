@@ -1,14 +1,9 @@
 package com.comst.flocloneapp.viewmodel
 
-import android.app.Application
-import android.content.Context
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.comst.flocloneapp.model.AlbumIncludeMusic
-import com.comst.flocloneapp.util.MusicPlayServiceUtil
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
