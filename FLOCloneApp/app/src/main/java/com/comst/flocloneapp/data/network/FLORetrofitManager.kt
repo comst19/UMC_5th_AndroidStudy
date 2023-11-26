@@ -12,10 +12,8 @@ object FLORetrofitManager {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    val api = retrofit.create(FLOService::class.java)
+    fun getAuthService(): FLOAuthInterface = retrofit.create(FLOAuthInterface::class.java)
 
-    fun getInstance(): FLOService{
-        return api
-    }
+    //fun getSongService(): FLOSongInterface = retrofit.create(FLOSongInterface::class.java)
 
 }
