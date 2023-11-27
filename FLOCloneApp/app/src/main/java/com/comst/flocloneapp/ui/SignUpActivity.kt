@@ -55,11 +55,9 @@ class SignUpActivity : AppCompatActivity(), SignUpView {
     }
 
     private fun networkSignUp(){
-
         val authService = FLOAuthService()
         authService.setSignUpView(this)
         authService.signUp(inputUserData())
-
     }
 
     private fun inputUserData(): UserEntity {

@@ -14,6 +14,6 @@ object FLORetrofitManager {
 
     fun getAuthService(): FLOAuthInterface = retrofit.create(FLOAuthInterface::class.java)
 
-    //fun getSongService(): FLOSongInterface = retrofit.create(FLOSongInterface::class.java)
+    fun getSongService(): FLOSongInterface = retrofit.create(FLOSongInterface::class.java)
 
 }

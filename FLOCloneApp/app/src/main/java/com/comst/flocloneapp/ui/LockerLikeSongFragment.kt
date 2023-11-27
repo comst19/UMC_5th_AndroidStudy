@@ -67,7 +67,6 @@ class LockerLikeSongFragment : Fragment(), SavedMusicListener {
                 allSelected()
             }
         }
-
     }
     private fun allSelected(){
 
