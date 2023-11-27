@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import com.comst.flocloneapp.data.db.SongDatabase
 import com.comst.flocloneapp.data.network.FLOAuthService
 import com.comst.flocloneapp.databinding.ActivityLoginBinding
@@ -13,6 +15,7 @@ import com.comst.flocloneapp.ui.response.LoginView
 import com.comst.flocloneapp.util.ToastLikeOnOff
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -93,7 +96,6 @@ class LoginActivity : AppCompatActivity(), LoginView {
     private fun inputUserData(): UserEntity {
         val email = "${binding.loginIdEt.text}@${binding.loginDirectInputEt.text}"
         val password = binding.loginPasswordEt.text.toString()
-
         return UserEntity(email, password, "")
     }
 
@@ -124,6 +126,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
 
         startActivity(Intent(this@LoginActivity, MainActivity::class.java))
         finish()
+
     }
 
     override fun onLoginFailure(message : String) {

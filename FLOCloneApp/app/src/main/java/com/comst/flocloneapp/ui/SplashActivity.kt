@@ -30,12 +30,12 @@ class SplashActivity : AppCompatActivity(), AutoLoginView {
         authService.autoLogin(jwt)
     }
 
-    override fun onLoginSuccess() {
+    override fun onAutoLoginSuccess() {
         startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
 
-    override fun onLoginFailure() {
+    override fun onAutoLoginFailure() {
         startActivity(Intent(this, LoginActivity::class.java))
         finish()
     }

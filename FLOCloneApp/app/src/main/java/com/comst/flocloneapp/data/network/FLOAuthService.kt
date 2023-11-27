@@ -1,5 +1,6 @@
 package com.comst.flocloneapp.data.network
 
+import android.util.Log
 import com.comst.flocloneapp.data.FLORetrofitManager
 import com.comst.flocloneapp.model.local.UserEntity
 import com.comst.flocloneapp.model.network.AuthResponse
@@ -78,8 +79,8 @@ class FLOAuthService {
                     if (response.isSuccessful && response.code() == 200){
                         val autoLoginResponse : AuthResponse = response.body()!!
                         when(val code = autoLoginResponse.code){
-                            1000 -> autoLoginView.onLoginSuccess()
-                            else -> autoLoginView.onLoginFailure()
+                            1000 -> autoLoginView.onAutoLoginSuccess()
+                            else -> autoLoginView.onAutoLoginFailure()
                         }
                     }else{
 
