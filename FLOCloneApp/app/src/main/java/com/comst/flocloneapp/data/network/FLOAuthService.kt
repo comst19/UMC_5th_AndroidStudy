@@ -1,6 +1,6 @@
 package com.comst.flocloneapp.data.network
 
-import android.util.Log
+import com.comst.flocloneapp.data.FLORetrofitManager
 import com.comst.flocloneapp.model.local.UserEntity
 import com.comst.flocloneapp.model.network.AuthResponse
 import com.comst.flocloneapp.ui.response.AutoLoginView
@@ -10,10 +10,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
 
 class FLOAuthService {
 

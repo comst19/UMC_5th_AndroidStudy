@@ -1,7 +1,6 @@
 package com.comst.flocloneapp.data.network
 
-import com.comst.flocloneapp.model.local.UserEntity
-import com.comst.flocloneapp.model.network.FloChartResult
+import com.comst.flocloneapp.data.FLORetrofitManager
 import com.comst.flocloneapp.model.network.SongResponse
 import com.comst.flocloneapp.ui.response.LookView
 import kotlinx.coroutines.CoroutineScope

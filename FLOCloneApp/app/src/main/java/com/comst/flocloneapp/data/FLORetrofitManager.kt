@@ -1,5 +1,7 @@
-package com.comst.flocloneapp.data.network
+package com.comst.flocloneapp.data
 
+import com.comst.flocloneapp.data.network.FLOAuthInterface
+import com.comst.flocloneapp.data.network.FLOSongInterface
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
